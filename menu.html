@@ -61,12 +61,11 @@
 
   a{ text-decoration:none; color:inherit; }
 
-  img{
-    display:block;
-    max-width:100%;
-    height:auto;
-    content-visibility:auto;
-  }
+ img{
+  display:block;
+  max-width:100%;
+  height:auto;
+}
 
   button,input,textarea,select{ font:inherit; }
 
@@ -230,7 +229,12 @@
 
   .thumb{ position:relative; aspect-ratio:16/11; background:#f7efe6; overflow:hidden; cursor:pointer; }
   .thumb::after{ content:""; position:absolute; inset:0; background:linear-gradient(180deg,transparent 54%,rgba(0,0,0,.10) 100%); pointer-events:none; }
-  .thumb img{ width:100%; height:100%; object-fit:cover; transition:transform .4s ease; decoding:async; }
+  .thumb img{
+  width:100%;
+  height:100%;
+  object-fit:cover;
+  transition:transform .25s ease;
+}
   .menu-card:hover .thumb img{ transform:scale(1.05); }
 
   .thumb-add-overlay{ position:absolute; inset:0; z-index:3; cursor:pointer; background:transparent; }
@@ -832,17 +836,23 @@
   const FALLBACK_IMAGE = "https://images.unsplash.com/photo-1519676867240-f03562e64548?auto=format&fit=crop&w=900&q=80";
 
   function buildPicture(filename, alt, isEager) {
-    const jpg = `${LOCAL_IMAGE_BASE}${filename}`;
-    const webp = `${LOCAL_IMAGE_BASE}${filename.replace(/\.(jpg|jpeg|png)$/i, '.webp')}`;
-    const loading = isEager ? 'eager' : 'lazy';
-    const decoding = isEager ? 'sync' : 'async';
-    return `<picture>
-      <source srcset="${webp}" type="image/webp">
-      <img src="${jpg}" alt="${alt}" width="900" height="618"
-        loading="${loading}" decoding="${decoding}"
-        onerror="this.onerror=null;this.parentElement.querySelector('source').srcset='';this.src='${FALLBACK_IMAGE}'">
-    </picture>`;
-  }
+  const src = `${LOCAL_IMAGE_BASE}${filename}`;
+  const loading = isEager ? 'eager' : 'lazy';
+  const fetchpriority = isEager ? 'high' : 'low';
+
+  return `
+    <img
+      src="${src}"
+      alt="${alt}"
+      width="900"
+      height="618"
+      loading="${loading}"
+      decoding="async"
+      fetchpriority="${fetchpriority}"
+      onerror="this.onerror=null;this.src='${FALLBACK_IMAGE}'"
+    >
+  `;
+}
 
   // ─── MENU DATA ─────────────────────────────────────────────────────────────
   const menuData = [
@@ -1194,7 +1204,7 @@
     }
 
     let eagerCount = 0;
-    const MAX_EAGER = 8;
+    const MAX_EAGER = 1;
 
     const sectionsHTML = sections.map(s => {
       const cardsHTML = s.filteredItems.map(item => {
@@ -1289,7 +1299,7 @@
   let searchDebounce;
   searchInput.addEventListener("input", () => {
     clearTimeout(searchDebounce);
-    searchDebounce = setTimeout(renderMenu, 180);
+    searchDebounce = setTimeout(renderMenu, 300);
   });
 
   categoryFilter.addEventListener("change", () => {

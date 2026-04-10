@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+  <link rel="preload" as="image" href="assets/images/front.webp" type="image/webp" fetchpriority="high">
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>The Waffle Busters | Order Online</title>
@@ -71,18 +72,17 @@
   }
 
   /* NAVBAR */
-  .navbar{
-    position:fixed;
-    top:0;
-    left:0;
-    width:100%;
-    z-index:1200;
-    padding:14px 0;
-    transition:.35s ease;
-    background:rgba(255,250,245,.88);
-    backdrop-filter:blur(14px);
-    border-bottom:1px solid rgba(31,20,12,.06);
-  }
+.navbar{
+  position:fixed;
+  top:0;
+  left:0;
+  width:100%;
+  z-index:1200;
+  padding:14px 0;
+  transition:.35s ease;
+  background:rgba(255,250,245,.96);
+  border-bottom:1px solid rgba(31,20,12,.06);
+}
 
   .navbar.scrolled{
     background:rgba(255,248,241,.96);
@@ -242,16 +242,15 @@
   }
 
   /* HERO */
-  .hero{
-    min-height:88vh;
-    display:flex;
-    align-items:center;
-    padding:138px 0 74px;
-    overflow:hidden;
-    background:
-      linear-gradient(180deg, rgba(255,255,255,.72), rgba(255,255,255,.82)),
-      url('assets/images/hero-bg.jpeg') center/cover no-repeat;
-  }
+.hero{
+  min-height:88vh;
+  display:flex;
+  align-items:center;
+  padding:138px 0 74px;
+  overflow:hidden;
+  background:
+    linear-gradient(180deg, rgba(255,255,255,.92), rgba(255,244,234,.96));
+}
 
   .hero::before{
     content:"";
@@ -682,18 +681,17 @@
       linear-gradient(to top, rgba(255,255,255,.98) 0%, rgba(255,255,255,.78) 30%, rgba(255,255,255,0) 58%);
   }
 
-  .card-content{
-    position:absolute;
-    left:18px;
-    right:18px;
-    bottom:18px;
-    z-index:2;
-    background:rgba(255,255,255,.94);
-    padding:16px;
-    border-radius:18px;
-    border:1px solid rgba(31,20,12,.08);
-    backdrop-filter:blur(8px);
-  }
+ .card-content{
+  position:absolute;
+  left:18px;
+  right:18px;
+  bottom:18px;
+  z-index:2;
+  background:rgba(255,255,255,.96);
+  padding:16px;
+  border-radius:18px;
+  border:1px solid rgba(31,20,12,.08);
+}
 
   .card-content h3{
     font-family:'Playfair Display',serif;
@@ -1042,13 +1040,12 @@
     z-index:2;
   }
 
-  .footer-card{
-    background:rgba(255,255,255,.12);
-    border:1px solid rgba(255,255,255,.18);
-    border-radius:24px;
-    padding:24px;
-    backdrop-filter:blur(8px);
-  }
+.footer-card{
+  background:rgba(255,255,255,.12);
+  border:1px solid rgba(255,255,255,.18);
+  border-radius:24px;
+  padding:24px;
+}
 
   .footer-card h3{
     font-family:'Playfair Display',serif;
@@ -1700,8 +1697,7 @@
   <nav class="navbar" id="navbar">
     <div class="nav-inner">
       <a href="#home" class="logo">
-        <img src="assets/images/logo.png" alt="The Waffle Busters Logo" class="logo-img">
-        <div class="logo-text">
+<img src="assets/images/logo.png" alt="The Waffle Busters Logo" class="logo-img" width="70" height="70" loading="eager" decoding="async">        <div class="logo-text">
           <h2>The Waffle Busters</h2>
           <p>Taste From the World</p>
         </div>
@@ -1769,8 +1765,7 @@
         <div class="orbit two"></div>
 
         <div class="floating-card main-waffle">
-          <img src="assets/images/front.webp" alt="Signature waffle">
-          <div class="label">
+<img src="assets/images/front.webp" alt="Signature waffle" width="900" height="1100" loading="eager" fetchpriority="high" decoding="async">          <div class="label">
             <div>
               <h3>Belgian Dark</h3>
               <span>Belgian style • premium finish</span>
@@ -1852,7 +1847,7 @@
 
       <div class="cards">
         <div class="card">
-          <img src="assets/images/menu/Belgian Dark Waffle Sandwich.jpg.webp" alt="Nutella Burst">
+<img src="assets/images/menu/Belgian Dark Waffle Sandwich.jpg.webp" alt="Nutella Burst" width="900" height="1100" loading="lazy" decoding="async">
           <div class="card-content">
             <h3>Belgian Dark</h3>
             <p>Rich, bold dark chocolate Belgian waffle with indulgent layers and premium finish.</p>
@@ -1864,7 +1859,7 @@
         </div>
 
         <div class="card">
-          <img src="assets/images/2.webp" alt="Bubble waffle">
+<img src="assets/images/2.webp" alt="Bubble waffle" width="900" height="1100" loading="lazy" decoding="async">
           <div class="card-content">
             <h3>Bubble Waffle</h3>
             <p>Crisp bubble shell, creamy toppings, premium sauces and the perfect social-media worthy finish.</p>
@@ -1875,8 +1870,7 @@
         </div>
 
         <div class="card">
-          <img src="assets/images/3.webp" alt="Belgian waffle">
-          <div class="card-content">
+<img src="assets/images/3.webp" alt="Belgian waffle" width="900" height="1100" loading="lazy" decoding="async">          <div class="card-content">
             <h3>Belgian Signature</h3>
             <p>Crisp outside, soft inside and finished with rich toppings for a deeply indulgent bite.</p>
             <div class="card-meta">
@@ -1943,8 +1937,7 @@
 
       <div class="journey-visual">
         <div class="journey-image">
-          <img src="assets/images/image.png" alt="The Waffle Busters Logo">
-        </div>
+<img src="assets/images/image.png" alt="The Waffle Busters Logo" width="1200" height="900" loading="lazy" decoding="async">        </div>
 
         <div class="overlay-box">
           <div class="overlay-mini">
