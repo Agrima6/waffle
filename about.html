@@ -1,0 +1,1569 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>About | The Waffle Busters</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=Playfair+Display:wght@700;800;900&display=swap" rel="stylesheet">
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+
+ <style>
+  :root{
+    --brand:#f97316;
+    --brand-dark:#dc5f0a;
+    --brand-soft:#fff4ea;
+    --cream:#fffaf5;
+    --cream-2:#fff1e3;
+    --surface:#ffffff;
+    --surface-2:#fff7ef;
+    --text:#1f140c;
+    --text-soft:#6f4b32;
+    --heading:#120b07;
+    --line:rgba(31,20,12,0.10);
+    --line-strong:rgba(31,20,12,0.16);
+    --shadow:0 18px 50px rgba(133,58,8,0.10);
+    --shadow-strong:0 24px 70px rgba(133,58,8,0.16);
+    --radius:24px;
+    --radius-lg:30px;
+  }
+
+  *{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+  }
+
+  html{
+    scroll-behavior:smooth;
+  }
+
+  body{
+    font-family:'Manrope',sans-serif;
+    background:
+      radial-gradient(circle at 10% 0%, rgba(249,115,22,.10), transparent 18%),
+      radial-gradient(circle at 100% 10%, rgba(249,115,22,.08), transparent 20%),
+      linear-gradient(180deg,#fffaf5 0%, #fff4ea 48%, #fff9f4 100%);
+    color:var(--text);
+    overflow-x:hidden;
+    -webkit-font-smoothing:antialiased;
+    text-rendering:optimizeLegibility;
+  }
+
+  a{
+    text-decoration:none;
+    color:inherit;
+  }
+
+  img{
+    display:block;
+    max-width:100%;
+  }
+
+  section{
+    position:relative;
+  }
+
+  .container{
+    width:min(1240px, calc(100% - 32px));
+    margin:auto;
+  }
+
+  /* NAVBAR */
+  .navbar{
+    position:fixed;
+    top:0;
+    left:0;
+    width:100%;
+    z-index:1200;
+    padding:14px 0;
+    transition:.3s ease;
+    background:rgba(255,250,245,.88);
+    backdrop-filter:blur(14px);
+    border-bottom:1px solid rgba(31,20,12,.06);
+  }
+
+  .navbar.scrolled{
+    background:rgba(255,248,241,.96);
+    border-bottom:1px solid rgba(31,20,12,.10);
+    box-shadow:0 10px 35px rgba(0,0,0,.06);
+  }
+
+  .nav-inner{
+    width:min(1240px, calc(100% - 32px));
+    margin:auto;
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    gap:18px;
+    min-height:60px;
+  }
+
+.logo{
+  display:flex;
+  align-items:center;
+  gap:22px;
+  min-width:0;
+  position:relative;
+  z-index:1202;
+  overflow:visible;
+}
+
+.logo-badge{
+  width:70px;
+  height:70px;
+  background:transparent;
+  box-shadow:none;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  overflow:visible;
+  padding:0;
+  border-radius:0;
+  flex-shrink:0;
+}
+
+.logo-badge img{
+  width:100%;
+  height:100%;
+  object-fit:contain;
+  transform:scale(1.32);
+  transform-origin:left center;
+}
+
+  .logo-text{
+    min-width:0;
+  }
+
+  .logo-text h2{
+    font-family:'Playfair Display',serif;
+    font-size:1.28rem;
+    font-weight:900;
+    color:var(--heading);
+    line-height:1.02;
+    letter-spacing:.4px;
+    text-transform:uppercase;
+  }
+
+  .logo-text p{
+    font-size:.76rem;
+    color:var(--brand-dark);
+    margin-top:4px;
+    white-space:nowrap;
+    font-weight:800;
+    letter-spacing:.8px;
+    text-transform:uppercase;
+  }
+
+  .nav-toggle{
+    display:none;
+    width:46px;
+    height:46px;
+    border:none;
+    border-radius:14px;
+    background:#fff;
+    border:1px solid rgba(31,20,12,.08);
+    align-items:center;
+    justify-content:center;
+    cursor:pointer;
+    position:relative;
+    z-index:1202;
+    flex-shrink:0;
+    box-shadow:0 10px 24px rgba(0,0,0,.05);
+  }
+
+  .nav-toggle span{
+    position:absolute;
+    width:22px;
+    height:2px;
+    border-radius:999px;
+    background:var(--heading);
+    transition:.28s ease;
+  }
+
+  .nav-toggle span:nth-child(1){transform:translateY(-7px);}
+  .nav-toggle span:nth-child(2){transform:translateY(0);}
+  .nav-toggle span:nth-child(3){transform:translateY(7px);}
+
+  .nav-toggle.active span:nth-child(1){transform:translateY(0) rotate(45deg);}
+  .nav-toggle.active span:nth-child(2){opacity:0;}
+  .nav-toggle.active span:nth-child(3){transform:translateY(0) rotate(-45deg);}
+
+  .nav-links{
+    display:flex;
+    align-items:center;
+    gap:12px;
+  }
+
+  .navbar ul{
+    display:flex;
+    gap:18px;
+    list-style:none;
+    align-items:center;
+    flex-wrap:wrap;
+    justify-content:flex-end;
+  }
+
+  .navbar a{
+    color:var(--heading);
+    font-weight:800;
+    font-size:.95rem;
+    transition:.25s ease;
+    position:relative;
+  }
+
+  .navbar a:hover,
+  .navbar a.active{
+    color:var(--brand-dark);
+  }
+
+  .navbar a::after{
+    content:"";
+    position:absolute;
+    left:0;
+    bottom:-8px;
+    width:0;
+    height:2px;
+    background:linear-gradient(90deg,var(--brand),var(--brand-dark));
+    transition:.25s ease;
+  }
+
+  .navbar a:hover::after,
+  .navbar a.active::after{
+    width:100%;
+  }
+
+  .nav-cta{
+    padding:12px 18px;
+    border-radius:999px;
+    border:1px solid transparent;
+    background:linear-gradient(135deg,var(--brand),var(--brand-dark));
+    color:#fff !important;
+    font-weight:900 !important;
+    box-shadow:0 14px 28px rgba(249,115,22,0.20);
+  }
+
+  .nav-cta::after{
+    display:none;
+  }
+
+  .nav-overlay{
+    display:none;
+  }
+
+  /* HERO */
+  .about-hero{
+    padding:130px 0 70px;
+  }
+
+  .hero-wrap{
+    display:grid;
+    grid-template-columns:minmax(0,1.08fr) minmax(0,.92fr);
+    gap:22px;
+    align-items:stretch;
+  }
+
+  .hero-copy{
+    background:#fff;
+    border:1px solid rgba(31,20,12,.08);
+    border-radius:var(--radius-lg);
+    padding:36px;
+    box-shadow:var(--shadow);
+    min-width:0;
+  }
+
+  .eyebrow{
+    display:inline-flex;
+    align-items:center;
+    gap:10px;
+    padding:10px 15px;
+    border-radius:999px;
+    background:#fff7ef;
+    border:1px solid rgba(31,20,12,.08);
+    color:var(--brand-dark);
+    font-weight:800;
+    margin-bottom:18px;
+    font-size:.9rem;
+    max-width:100%;
+  }
+
+  .hero-copy h1{
+    font-family:'Playfair Display',serif;
+    font-size:clamp(2.4rem, 5.5vw, 4.6rem);
+    line-height:.98;
+    font-weight:900;
+    color:var(--heading);
+    margin-bottom:16px;
+  }
+
+  .hero-copy h1 span{
+    color:var(--brand);
+  }
+
+  .hero-copy p{
+    color:var(--text-soft);
+    font-size:.98rem;
+    line-height:1.82;
+    max-width:700px;
+    margin-top:10px;
+  }
+
+  .hero-actions{
+    margin-top:24px;
+    display:flex;
+    flex-wrap:wrap;
+    gap:12px;
+  }
+
+  .btn{
+    display:inline-flex;
+    align-items:center;
+    justify-content:center;
+    min-height:54px;
+    padding:15px 24px;
+    border-radius:999px;
+    font-weight:800;
+    font-size:.96rem;
+    transition:.25s ease;
+    border:1px solid transparent;
+    text-align:center;
+  }
+
+  .btn-primary{
+    background:linear-gradient(135deg,var(--brand),var(--brand-dark));
+    color:#fff;
+    box-shadow:0 16px 30px rgba(249,115,22,.18);
+  }
+
+  .btn-primary:hover{
+    transform:translateY(-4px);
+  }
+
+  .btn-secondary{
+    background:#fff;
+    border-color:rgba(31,20,12,.10);
+    color:var(--heading);
+  }
+
+  .btn-secondary:hover{
+    transform:translateY(-4px);
+    background:var(--surface-2);
+  }
+
+  .hero-visual{
+    background:#fff;
+    border:1px solid rgba(31,20,12,.08);
+    border-radius:var(--radius-lg);
+    padding:16px;
+    box-shadow:var(--shadow);
+    display:flex;
+    flex-direction:column;
+    justify-content:space-between;
+    gap:14px;
+    min-width:0;
+  }
+
+  .hero-image{
+    border-radius:22px;
+    overflow:hidden;
+  }
+
+  .hero-image img{
+    width:100%;
+    height:390px;
+    object-fit:cover;
+  }
+
+  .hero-note{
+    padding:4px 2px 0;
+  }
+
+  .hero-note h3{
+    font-size:1.08rem;
+    font-weight:800;
+    margin-bottom:8px;
+    color:var(--heading);
+  }
+
+  .hero-note p{
+    color:var(--text-soft);
+    line-height:1.72;
+    font-size:.92rem;
+  }
+
+  /* COMMON */
+  .section-head{
+    text-align:center;
+    margin-bottom:38px;
+  }
+
+  .section-head .mini{
+    color:var(--brand-dark);
+    font-weight:900;
+    letter-spacing:2px;
+    text-transform:uppercase;
+    margin-bottom:12px;
+    font-size:.82rem;
+  }
+
+  .section-head h2{
+    font-family:'Playfair Display',serif;
+    font-size:clamp(1.95rem, 4.2vw, 3.1rem);
+    line-height:1.12;
+    color:var(--heading);
+  }
+
+  .section-head p{
+    margin:14px auto 0;
+    max-width:760px;
+    color:var(--text-soft);
+    font-size:.97rem;
+    line-height:1.78;
+  }
+
+  /* STORY */
+  .brand-story{
+    padding:18px 0 80px;
+  }
+
+  .story-grid{
+    display:grid;
+    grid-template-columns:repeat(2,minmax(0,1fr));
+    gap:18px;
+  }
+
+  .story-card{
+    background:#fff;
+    border:1px solid rgba(31,20,12,.08);
+    border-radius:24px;
+    padding:26px;
+    box-shadow:var(--shadow);
+  }
+
+  .story-card h3{
+    font-size:1.25rem;
+    font-weight:800;
+    margin-bottom:12px;
+    color:var(--heading);
+  }
+
+  .story-card p{
+    color:var(--text-soft);
+    line-height:1.78;
+    font-size:.95rem;
+  }
+
+  .pill-grid{
+    display:grid;
+    grid-template-columns:repeat(2,minmax(0,1fr));
+    gap:12px;
+    margin-top:10px;
+  }
+
+  .pill{
+    padding:14px 15px;
+    border-radius:18px;
+    background:#fff7ef;
+    border:1px solid rgba(31,20,12,.07);
+    color:var(--heading);
+    font-weight:800;
+    font-size:.9rem;
+    line-height:1.45;
+  }
+
+  /* JOURNEY */
+  .journey{
+    padding:0 0 80px;
+  }
+
+  .journey-grid{
+    display:grid;
+    grid-template-columns:repeat(4,minmax(0,1fr));
+    gap:14px;
+  }
+
+  .journey-card{
+    background:#fff;
+    border:1px solid rgba(31,20,12,.08);
+    border-radius:22px;
+    padding:22px;
+    box-shadow:var(--shadow);
+    transition:.25s ease;
+  }
+
+  .journey-card:hover{
+    transform:translateY(-6px);
+  }
+
+  .step{
+    display:inline-flex;
+    padding:8px 12px;
+    border-radius:999px;
+    background:#fff4ea;
+    border:1px solid rgba(249,115,22,.18);
+    color:var(--brand-dark);
+    font-weight:900;
+    font-size:.78rem;
+    margin-bottom:12px;
+  }
+
+  .journey-card h4{
+    font-size:1.02rem;
+    margin-bottom:10px;
+    font-weight:800;
+    color:var(--heading);
+  }
+
+  .journey-card p{
+    color:var(--text-soft);
+    line-height:1.72;
+    font-size:.9rem;
+  }
+
+  /* VALUES */
+  .values{
+    padding:84px 0;
+    background:linear-gradient(180deg, #fff2e6, #fffaf5);
+    border-top:1px solid rgba(31,20,12,.05);
+    border-bottom:1px solid rgba(31,20,12,.05);
+  }
+
+  .values-wrap{
+    display:grid;
+    grid-template-columns:repeat(2,minmax(0,1fr));
+    gap:22px;
+    align-items:center;
+  }
+
+  .values-copy{
+    background:#fff;
+    border:1px solid rgba(31,20,12,.08);
+    border-radius:26px;
+    padding:30px;
+    box-shadow:var(--shadow);
+  }
+
+  .values-copy .mini{
+    color:var(--brand-dark);
+    font-weight:900;
+    letter-spacing:2px;
+    text-transform:uppercase;
+    margin-bottom:12px;
+    font-size:.82rem;
+  }
+
+  .values-copy h2{
+    font-family:'Playfair Display',serif;
+    font-size:clamp(1.95rem, 4vw, 2.9rem);
+    margin-bottom:16px;
+    line-height:1.12;
+    color:var(--heading);
+  }
+
+  .values-copy p{
+    color:var(--text-soft);
+    font-size:.97rem;
+    line-height:1.82;
+  }
+
+  .value-list{
+    margin-top:20px;
+    display:grid;
+    gap:10px;
+  }
+
+  .value-item{
+    padding:15px 16px;
+    border-radius:18px;
+    background:#fff7ef;
+    border:1px solid rgba(31,20,12,.07);
+    color:var(--heading);
+    font-size:.92rem;
+    line-height:1.65;
+  }
+
+  .value-item strong{
+    color:var(--brand-dark);
+  }
+
+  .values-visual{
+    background:#fff;
+    border:1px solid rgba(31,20,12,.08);
+    border-radius:26px;
+    padding:16px;
+    box-shadow:var(--shadow);
+  }
+
+  .values-image{
+    overflow:hidden;
+    border-radius:20px;
+  }
+
+  .values-image img{
+    width:100%;
+    height:500px;
+    object-fit:cover;
+  }
+
+  .values-note{
+    margin-top:12px;
+    color:var(--text-soft);
+    line-height:1.65;
+    font-size:.9rem;
+    text-align:center;
+  }
+
+  /* HIGHLIGHTS */
+  .highlights{
+    padding:84px 0;
+  }
+
+  .highlight-grid{
+    display:grid;
+    grid-template-columns:repeat(4, minmax(0,1fr));
+    gap:14px;
+  }
+
+  .highlight{
+    background:#fff;
+    border:1px solid rgba(31,20,12,.08);
+    border-radius:22px;
+    padding:22px;
+    box-shadow:var(--shadow);
+    transition:.25s ease;
+  }
+
+  .highlight:hover{
+    transform:translateY(-6px);
+  }
+
+  .highlight .icon{
+    width:52px;
+    height:52px;
+    border-radius:15px;
+    background:linear-gradient(135deg,var(--brand),var(--brand-dark));
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    font-size:1.25rem;
+    color:#fff;
+    margin-bottom:14px;
+  }
+
+  .highlight h4{
+    font-size:1.02rem;
+    margin-bottom:9px;
+    font-weight:800;
+    color:var(--heading);
+  }
+
+  .highlight p{
+    color:var(--text-soft);
+    line-height:1.72;
+    font-size:.9rem;
+  }
+
+  /* CTA */
+  .about-cta{
+    padding:0 0 84px;
+  }
+
+  .cta-box{
+    background:linear-gradient(135deg,#fff4ea,#fff9f4);
+    border:1px solid rgba(31,20,12,.08);
+    border-radius:28px;
+    padding:34px;
+    box-shadow:var(--shadow);
+  }
+
+  .cta-wrap{
+    display:grid;
+    grid-template-columns:minmax(0,1.1fr) minmax(0,.9fr);
+    gap:20px;
+    align-items:center;
+  }
+
+  .cta-copy h2{
+    font-family:'Playfair Display',serif;
+    font-size:clamp(1.95rem, 4vw, 3.1rem);
+    line-height:1.08;
+    color:var(--heading);
+  }
+
+  .cta-copy p{
+    margin-top:14px;
+    color:var(--text-soft);
+    font-size:.97rem;
+    line-height:1.8;
+    max-width:700px;
+  }
+
+  .cta-mini-grid{
+    display:grid;
+    grid-template-columns:repeat(2,minmax(0,1fr));
+    gap:12px;
+  }
+
+  .cta-mini{
+    background:#fff;
+    border:1px solid rgba(31,20,12,.08);
+    border-radius:20px;
+    padding:18px;
+  }
+
+  .cta-mini h4{
+    font-size:.98rem;
+    color:var(--brand-dark);
+    font-weight:800;
+    margin-bottom:8px;
+  }
+
+  .cta-mini p{
+    color:var(--text-soft);
+    line-height:1.65;
+    font-size:.88rem;
+  }
+
+  /* FOOTER */
+  footer{
+    padding:64px 0 30px;
+    background:linear-gradient(180deg,var(--brand),var(--brand-dark));
+    border-top:1px solid rgba(255,255,255,.08);
+  }
+
+  .footer-grid{
+    display:grid;
+    grid-template-columns:1.2fr .8fr .8fr;
+    gap:18px;
+  }
+
+  .footer-card{
+    background:rgba(255,255,255,.12);
+    border:1px solid rgba(255,255,255,.18);
+    border-radius:22px;
+    padding:22px;
+  }
+
+  .footer-card h3{
+    font-size:1.18rem;
+    margin-bottom:12px;
+    font-weight:800;
+    color:#fff;
+  }
+
+  .footer-card p,
+  .footer-card li,
+  .footer-card a{
+    color:#fff7ef;
+    line-height:1.75;
+    font-size:.92rem;
+  }
+
+  .footer-card ul{
+    list-style:none;
+  }
+
+  .footer-card li + li{
+    margin-top:6px;
+  }
+
+  .footer-bottom{
+    text-align:center;
+    margin-top:20px;
+    color:#fff1e5;
+    font-size:.86rem;
+  }
+
+  /* FLOATING */
+  .floating-order{
+    position:fixed;
+    right:14px;
+    bottom:14px;
+    z-index:1000;
+    background:linear-gradient(135deg,var(--brand),var(--brand-dark));
+    color:#fff;
+    font-weight:900;
+    padding:14px 18px;
+    border-radius:999px;
+    box-shadow:0 18px 40px rgba(249,115,22,.24);
+    animation:pulse 2s infinite;
+    font-size:.9rem;
+  }
+
+  @keyframes pulse{
+    0%,100%{ transform:scale(1); }
+    50%{ transform:scale(1.04); }
+  }
+
+  /* RESPONSIVE */
+  @media (max-width:1180px){
+    .hero-wrap,
+    .story-grid,
+    .values-wrap,
+    .cta-wrap,
+    .footer-grid{
+      grid-template-columns:1fr;
+    }
+
+    .journey-grid,
+    .highlight-grid{
+      grid-template-columns:1fr 1fr;
+    }
+  }
+
+  @media (max-width:900px){
+    .nav-toggle{
+      display:flex;
+    }
+
+    .nav-links{
+      position:fixed;
+      top:0;
+      right:-100%;
+      width:min(88vw, 360px);
+      height:100svh;
+      background:linear-gradient(180deg,#fffaf5,#fff2e6);
+      border-left:1px solid rgba(31,20,12,.08);
+      box-shadow:-20px 0 50px rgba(0,0,0,.12);
+      padding:92px 20px 28px;
+      transition:.34s ease;
+      display:flex;
+      align-items:flex-start;
+      justify-content:flex-start;
+      z-index:1201;
+    }
+
+    .nav-links.active{
+      right:0;
+    }
+
+    .nav-links ul{
+      width:100%;
+      flex-direction:column;
+      align-items:flex-start;
+      gap:8px;
+    }
+
+    .nav-links li{
+      width:100%;
+    }
+
+    .nav-links a{
+      display:block;
+      width:100%;
+      padding:14px 14px;
+      border-radius:16px;
+      font-size:1rem;
+    }
+
+    .nav-links a:hover{
+      background:rgba(249,115,22,.08);
+    }
+
+    .nav-links a::after{
+      display:none;
+    }
+
+    .nav-links .nav-cta{
+      margin-top:8px;
+      text-align:center;
+    }
+
+    .nav-overlay{
+      display:block;
+      position:fixed;
+      inset:0;
+      background:rgba(0,0,0,.35);
+      backdrop-filter:blur(3px);
+      opacity:0;
+      visibility:hidden;
+      transition:.28s ease;
+      z-index:1200;
+    }
+
+    .nav-overlay.active{
+      opacity:1;
+      visibility:visible;
+    }
+
+    .about-hero{
+      padding:112px 0 58px;
+    }
+
+    .pill-grid,
+    .cta-mini-grid{
+      grid-template-columns:1fr 1fr;
+    }
+
+    .journey-grid,
+    .highlight-grid{
+      grid-template-columns:1fr;
+    }
+
+    .hero-copy{
+      padding:28px 22px;
+    }
+
+    .values-copy,
+    .cta-box{
+      padding:26px 20px;
+    }
+
+    .hero-image img,
+    .values-image img{
+      height:430px;
+    }
+  }
+
+  @media (max-width:640px){
+    .container,
+    .nav-inner{
+      width:min(100% - 20px, 1240px);
+    }
+
+    .navbar{
+      padding:10px 0;
+    }
+
+ .logo-badge{
+  width:58px;
+  height:58px;
+  background:transparent;
+  box-shadow:none;
+  padding:0;
+  border-radius:0;
+  overflow:visible;
+}
+.logo-badge img{
+  transform:scale(1.16);
+  transform-origin:left center;
+}
+
+    .logo-text h2{
+      font-size:1rem;
+    }
+
+    .logo-text p{
+      font-size:.64rem;
+      letter-spacing:.45px;
+      max-width:140px;
+      overflow:hidden;
+      text-overflow:ellipsis;
+    }
+
+    .about-hero{
+      padding:104px 0 46px;
+    }
+
+    .hero-copy{
+      padding:22px 16px;
+      border-radius:22px;
+    }
+
+    .hero-visual{
+      padding:12px;
+      border-radius:22px;
+    }
+
+    .eyebrow{
+      font-size:.8rem;
+      padding:9px 12px;
+      margin-bottom:14px;
+    }
+
+    .hero-copy h1{
+      font-size:2.08rem;
+      line-height:.98;
+    }
+
+    .hero-copy p{
+      font-size:.92rem;
+      line-height:1.7;
+    }
+
+    .hero-actions{
+      flex-direction:column;
+      gap:10px;
+    }
+
+    .btn{
+      width:100%;
+      min-height:52px;
+      padding:14px 18px;
+      font-size:.92rem;
+    }
+
+    .hero-image{
+      border-radius:18px;
+    }
+
+    .hero-image img,
+    .values-image img{
+      height:280px;
+    }
+
+    .hero-note h3{
+      font-size:1rem;
+    }
+
+    .hero-note p{
+      font-size:.86rem;
+    }
+
+    .section-head{
+      margin-bottom:30px;
+    }
+
+    .section-head h2{
+      font-size:1.72rem;
+    }
+
+    .section-head p{
+      font-size:.9rem;
+      line-height:1.68;
+    }
+
+    .brand-story,
+    .journey,
+    .values,
+    .highlights,
+    .about-cta{
+      padding-bottom:64px;
+    }
+
+    .story-card,
+    .values-copy,
+    .values-visual,
+    .footer-card{
+      padding:20px 16px;
+      border-radius:20px;
+    }
+
+    .story-card h3{
+      font-size:1.08rem;
+    }
+
+    .story-card p{
+      font-size:.9rem;
+    }
+
+    .pill-grid,
+    .cta-mini-grid{
+      grid-template-columns:1fr;
+    }
+
+    .pill{
+      font-size:.86rem;
+      padding:13px 14px;
+    }
+
+    .journey-card,
+    .highlight{
+      padding:18px 16px;
+      border-radius:18px;
+    }
+
+    .highlight .icon{
+      width:46px;
+      height:46px;
+      border-radius:13px;
+      font-size:1.1rem;
+    }
+
+    .journey-card h4,
+    .highlight h4{
+      font-size:.96rem;
+    }
+
+    .journey-card p,
+    .highlight p{
+      font-size:.87rem;
+    }
+
+    .values-copy h2,
+    .cta-copy h2{
+      font-size:1.82rem;
+    }
+
+    .values-copy p,
+    .cta-copy p{
+      font-size:.91rem;
+    }
+
+    .value-item{
+      font-size:.86rem;
+      padding:13px 14px;
+    }
+
+    .values-note{
+      font-size:.84rem;
+    }
+
+    .cta-box{
+      padding:22px 16px;
+      border-radius:22px;
+    }
+
+    .cta-mini{
+      padding:16px;
+      border-radius:18px;
+    }
+
+    .cta-mini h4{
+      font-size:.92rem;
+    }
+
+    .cta-mini p{
+      font-size:.84rem;
+    }
+
+    footer{
+      padding:50px 0 26px;
+    }
+
+    .footer-card h3{
+      font-size:1.08rem;
+    }
+
+    .footer-card p,
+    .footer-card li,
+    .footer-card a{
+      font-size:.88rem;
+    }
+
+    .floating-order{
+      right:10px;
+      bottom:10px;
+      padding:13px 15px;
+      font-size:.82rem;
+    }
+  }
+
+  @media (max-width:420px){
+    .hero-copy h1{
+      font-size:1.88rem;
+    }
+
+    .section-head h2,
+    .values-copy h2,
+    .cta-copy h2{
+      font-size:1.58rem;
+    }
+
+    .hero-image img,
+    .values-image img{
+      height:240px;
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce){
+    *{
+      animation:none !important;
+      transition:none !important;
+      scroll-behavior:auto !important;
+    }
+  }
+</style>
+</head>
+
+<body>
+
+  <div class="nav-overlay" id="navOverlay"></div>
+
+  <nav class="navbar">
+  <div class="nav-inner">
+    <a href="index.html#home" class="logo">
+      <div class="logo-badge">
+        <img src="assets/images/logo.png" alt="The Waffle Busters Logo">
+      </div>
+      <div class="logo-text">
+        <h2>The Waffle Busters</h2>
+        <p>TASTE FROM THE WORLD</p>
+      </div>
+    </a>
+
+    <button class="nav-toggle" id="navToggle" aria-label="Open menu" aria-expanded="false">
+      <span></span>
+      <span></span>
+      <span></span>
+    </button>
+
+    <div class="nav-links" id="navLinks">
+      <ul>
+        <li><a href="index.html#home">Home</a></li>
+        <li><a href="menu.html">Menu</a></li>
+        <li><a href="franchise.html">Franchise</a></li>
+        <li><a href="events.html">Events</a></li>
+        <li><a href="about.html" class="active">About</a></li>
+        <li><a href="contact.html">Contact</a></li>
+        <li><a href="menu.html" class="nav-cta">Order Now</a></li>
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  <section class="about-hero">
+    <div class="container hero-wrap">
+      <div class="hero-copy">
+        <div class="eyebrow">✨ Bold story. Premium dessert energy. Local love.</div>
+        <h1>About <span>The Waffle Busters</span></h1>
+
+        <p>
+          The Waffle Busters is more than a dessert outlet. It is a flavour-first brand built around
+          indulgence, strong visual appeal and memorable experiences that keep people coming back.
+        </p>
+
+        <p>
+          From Belgian-style waffles and bubble waffles to shakes, pancakes and coffee pairings,
+          the goal is simple — make dessert feel exciting, premium and worth sharing.
+        </p>
+
+        <div class="hero-actions">
+          <a href="menu.html" class="btn btn-primary">Explore Our Menu</a>
+          <a href="contact.html" class="btn btn-secondary">Visit / Contact Us</a>
+        </div>
+      </div>
+
+      <div class="hero-visual">
+        <div class="hero-image">
+          <img src="assets/images/image.png" alt="The Waffle Buster brand">
+        </div>
+        <div class="hero-note">
+          <h3>Built to stand out</h3>
+          <p>
+            A brand shaped around premium dessert culture, strong recall and a modern identity that people remember.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="brand-story">
+    <div class="container">
+      <div class="section-head">
+        <div class="mini">Brand Story</div>
+        <h2>A dessert brand with attitude.</h2>
+        <p>
+          The Waffle Busters was built with one clear thought — dessert should never feel basic.
+          It should feel rich, energetic, memorable and full of personality.
+        </p>
+      </div>
+
+      <div class="story-grid">
+        <div class="story-card">
+          <h3>Why we started</h3>
+          <p>
+            We wanted to create a modern dessert destination that feels youthful, premium and visually strong.
+            A place where waffles are not just served, but presented with excitement, indulgence and style.
+          </p>
+        </div>
+
+        <div class="story-card">
+          <h3>What defines us</h3>
+          <div class="pill-grid">
+            <div class="pill">Belgian-style waffle identity</div>
+            <div class="pill">Strong visual presentation</div>
+            <div class="pill">Premium shakes and pairings</div>
+            <div class="pill">Bold youthful brand vibe</div>
+            <div class="pill">Craving-led menu variety</div>
+            <div class="pill">Built for repeat visits</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="journey">
+    <div class="container">
+      <div class="section-head">
+        <div class="mini">Our Journey</div>
+        <h2>How the idea became a brand.</h2>
+        <p>
+          The Waffle Buster journey is about turning a simple dessert format into a complete customer experience.
+        </p>
+      </div>
+
+      <div class="journey-grid">
+        <div class="journey-card">
+          <div class="step">Step 01</div>
+          <h4>The Idea</h4>
+          <p>
+            Start with one goal: create a dessert destination that feels more premium, modern and memorable.
+          </p>
+        </div>
+
+        <div class="journey-card">
+          <div class="step">Step 02</div>
+          <h4>The Menu</h4>
+          <p>
+            Focus on waffle-led indulgence with loaded toppings, shakes, pancakes and coffee pairings.
+          </p>
+        </div>
+
+        <div class="journey-card">
+          <div class="step">Step 03</div>
+          <h4>The Personality</h4>
+          <p>
+            Build a strong identity around bold visuals, youth appeal and desserts people want to post about.
+          </p>
+        </div>
+
+        <div class="journey-card">
+          <div class="step">Step 04</div>
+          <h4>The Vision</h4>
+          <p>
+            Shape the brand to be memorable, scalable and exciting enough for long-term growth.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="values">
+    <div class="container">
+      <div class="values-wrap">
+        <div class="values-copy">
+          <div class="mini">What We Believe</div>
+          <h2>Dessert should never feel ordinary.</h2>
+          <p>
+            For us, dessert is about emotion as much as taste. It should feel rewarding, rich and exciting.
+            That is why The Waffle Buster is built around more than just menu items. It is built around
+            the way people react when they see, taste and remember the brand.
+          </p>
+
+          <div class="value-list">
+            <div class="value-item"><strong>Bold:</strong> strong flavours, strong visuals and strong identity.</div>
+            <div class="value-item"><strong>Premium:</strong> indulgence-led menu experience with quality feel.</div>
+            <div class="value-item"><strong>Memorable:</strong> desserts people talk about and revisit.</div>
+            <div class="value-item"><strong>Scalable:</strong> a brand designed to grow, not just operate.</div>
+          </div>
+        </div>
+
+        <div class="values-visual">
+          <div class="values-image">
+            <img src="assets/images/2.jpeg" alt="Dessert experience">
+          </div>
+          <div class="values-note">
+            A dessert experience designed around visual impact, indulgence and repeat customer love.
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="highlights">
+    <div class="container">
+      <div class="section-head">
+        <div class="mini">Why People Connect With Us</div>
+        <h2>Not just taste. The full feeling.</h2>
+        <p>
+          Customers remember The Waffle Buster because the brand is built around flavour, visuals, vibe and indulgence.
+        </p>
+      </div>
+
+      <div class="highlight-grid">
+        <div class="highlight">
+          <div class="icon">🧇</div>
+          <h4>Waffle-Led Identity</h4>
+          <p>Clear product focus with strong branding around waffles, pancakes, shakes and dessert culture.</p>
+        </div>
+
+        <div class="highlight">
+          <div class="icon">🍫</div>
+          <h4>Rich Flavour Profiles</h4>
+          <p>Chocolate-forward, topping-rich and indulgent combinations that instantly feel satisfying.</p>
+        </div>
+
+        <div class="highlight">
+          <div class="icon">📸</div>
+          <h4>Social Media Appeal</h4>
+          <p>Presentation and menu items made to attract attention in-store and online.</p>
+        </div>
+
+        <div class="highlight">
+          <div class="icon">🚀</div>
+          <h4>Growth-Ready Brand</h4>
+          <p>A strong visual identity and premium positioning that support future scale and expansion.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="about-cta">
+    <div class="container">
+      <div class="cta-box">
+        <div class="cta-wrap">
+          <div class="cta-copy">
+            <div class="mini" style="color:var(--gold);font-weight:800;letter-spacing:2px;text-transform:uppercase;margin-bottom:12px;">Next Step</div>
+            <h2>Now explore what makes the brand irresistible.</h2>
+            <p>
+              Move from story to flavour. Browse the full menu, discover signature items and see how
+              The Waffle Buster turns cravings into a premium dessert experience.
+            </p>
+
+            <div class="hero-actions" style="margin-top:24px;">
+              <a href="menu.html" class="btn btn-primary">Open Full Menu</a>
+              <a href="index.html#home" class="btn btn-secondary">Back to Home</a>
+            </div>
+          </div>
+
+          <div class="cta-mini-grid">
+            <div class="cta-mini">
+              <h4>Menu</h4>
+              <p>Waffles, pancakes, shakes, coffees and loaded favourites.</p>
+            </div>
+            <div class="cta-mini">
+              <h4>Franchise</h4>
+              <p>Brand personality strong enough to support a scalable dessert concept.</p>
+            </div>
+            <div class="cta-mini">
+              <h4>Events</h4>
+              <p>Perfect for crowd-pulling dessert stalls and sweet experiences.</p>
+            </div>
+            <div class="cta-mini">
+              <h4>Contact</h4>
+              <p>Reach out for orders, collaborations and customer enquiries.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-card">
+          <h3>The Waffle Buster</h3>
+          <p>
+            A premium dessert brand built around indulgence, strong visuals,
+            flavour-first thinking and memorable customer experience.
+          </p>
+        </div>
+
+        <div class="footer-card">
+          <h3>Quick Links</h3>
+          <ul>
+            <li><a href="index.html#home">Home</a></li>
+            <li><a href="menu.html">Menu</a></li>
+            <li><a href="franchise.html">Franchise</a></li>
+            <li><a href="events.html">Events</a></li>
+            <li><a href="about.html">About</a></li>
+            <li><a href="contact.html">Contact</a></li>
+          </ul>
+        </div>
+
+        <div class="footer-card">
+          <h3>Brand Highlights</h3>
+          <ul>
+            <li>Belgian-style dessert positioning</li>
+            <li>Premium visual-first presentation</li>
+            <li>Strong youth appeal and indulgence focus</li>
+            <li>Built for repeat cravings and growth</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="footer-bottom">
+        © 2026 The Waffle Busters. All Rights Reserved.
+      </div>
+    </div>
+  </footer>
+
+  <a href="menu.html" class="floating-order">Open Menu</a>
+
+  <script>
+    gsap.registerPlugin(ScrollTrigger);
+
+    const navbar = document.querySelector(".navbar");
+    const navToggle = document.getElementById("navToggle");
+    const navLinks = document.getElementById("navLinks");
+    const navOverlay = document.getElementById("navOverlay");
+    const navItems = document.querySelectorAll(".nav-links a");
+
+    function closeMenu() {
+      navToggle.classList.remove("active");
+      navLinks.classList.remove("active");
+      navOverlay.classList.remove("active");
+      navToggle.setAttribute("aria-expanded", "false");
+      document.body.style.overflow = "";
+    }
+
+    function openMenu() {
+      navToggle.classList.add("active");
+      navLinks.classList.add("active");
+      navOverlay.classList.add("active");
+      navToggle.setAttribute("aria-expanded", "true");
+      document.body.style.overflow = "hidden";
+    }
+
+    navToggle.addEventListener("click", () => {
+      const isOpen = navLinks.classList.contains("active");
+      isOpen ? closeMenu() : openMenu();
+    });
+
+    navOverlay.addEventListener("click", closeMenu);
+    navItems.forEach(link => link.addEventListener("click", closeMenu));
+
+    window.addEventListener("resize", () => {
+      if (window.innerWidth > 900) {
+        closeMenu();
+      }
+    });
+
+    /* NAV SCROLL */
+    window.addEventListener("scroll", () => {
+      navbar.classList.toggle("scrolled", window.scrollY > 24);
+    });
+
+    /* HERO */
+    gsap.from(".hero-copy", {
+      y:34,
+      opacity:0,
+      duration:0.95,
+      ease:"power3.out"
+    });
+
+    gsap.from(".hero-visual", {
+      y:34,
+      opacity:0,
+      duration:0.95,
+      delay:0.12,
+      ease:"power3.out"
+    });
+
+    /* SECTION ANIMS */
+    gsap.utils.toArray(".section-head").forEach((el) => {
+      gsap.from(el, {
+        y:36,
+        opacity:0,
+        duration:0.85,
+        ease:"power3.out",
+        scrollTrigger:{
+          trigger:el,
+          start:"top 84%"
+        }
+      });
+    });
+
+    gsap.utils.toArray(".story-card, .journey-card, .values-copy, .values-visual, .highlight, .cta-box, .footer-card").forEach((el, i) => {
+      gsap.from(el, {
+        y:42,
+        opacity:0,
+        duration:0.85,
+        delay:i * 0.03,
+        ease:"power3.out",
+        scrollTrigger:{
+          trigger:el,
+          start:"top 88%"
+        }
+      });
+    });
+  </script>
+
+</body>
+</html>

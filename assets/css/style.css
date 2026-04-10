@@ -1,0 +1,252 @@
+*{
+  margin:0;
+  padding:0;
+  box-sizing:border-box;
+}
+
+body{
+  font-family: 'Poppins', sans-serif;
+  background:#fffaf2;
+  color:#2b1408;
+  overflow-x:hidden;
+}
+
+/* NAVBAR */
+
+.navbar{
+  position:fixed;
+  top:0;
+  width:100%;
+  padding:20px 80px;
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  z-index:1000;
+  transition:0.4s;
+}
+
+.navbar.scrolled{
+  background:rgba(0,0,0,0.85);
+  backdrop-filter:blur(12px);
+}
+
+.navbar ul{
+  list-style:none;
+  display:flex;
+  gap:40px;
+}
+
+.navbar a{
+  text-decoration:none;
+  color:white;
+  font-weight:600;
+  letter-spacing:1px;
+  transition:0.3s;
+}
+
+.navbar a:hover{
+  color:#ffb703;
+}
+
+.logo img{
+  height:55px;
+}
+
+/* HERO */
+
+.hero{
+  height:100vh;
+  position:relative;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  text-align:center;
+  color:white;
+}
+
+.hero-bg img{
+  position:absolute;
+  width:100%;
+  height:100%;
+  object-fit:cover;
+}
+
+.overlay{
+  position:absolute;
+  width:100%;
+  height:100%;
+  background:linear-gradient(
+    rgba(0,0,0,0.65),
+    rgba(0,0,0,0.85)
+  );
+}
+
+.hero-content{
+  position:relative;
+  z-index:2;
+}
+
+.hero-title{
+  font-size:6rem;
+  font-weight:800;
+  letter-spacing:6px;
+  color:#ffb703;
+}
+
+.hero-sub{
+  margin-top:20px;
+  font-size:1.5rem;
+  letter-spacing:3px;
+}
+
+.cta-btn{
+  margin-top:40px;
+  padding:18px 55px;
+  border:none;
+  background:linear-gradient(135deg,#f47c20,#ffb703);
+  color:white;
+  font-weight:600;
+  letter-spacing:2px;
+  cursor:pointer;
+  transition:0.4s;
+}
+
+.cta-btn:hover{
+  transform:translateY(-5px);
+  box-shadow:0 15px 40px rgba(244,124,32,0.4);
+}
+
+/* BIG STATEMENT */
+
+.big-text{
+  padding:180px 120px;
+  text-align:center;
+}
+
+.big-text h2{
+  font-size:4rem;
+  font-weight:700;
+  margin-bottom:30px;
+}
+
+/* SIGNATURE */
+
+.signature{
+  padding:150px 100px;
+}
+
+.section-title{
+  font-size:3.5rem;
+  text-align:center;
+  margin-bottom:80px;
+}
+
+.waffle-grid{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(300px,1fr));
+  gap:60px;
+}
+
+.waffle-card{
+  background:white;
+  padding:60px;
+  border-radius:20px;
+  box-shadow:0 20px 60px rgba(0,0,0,0.08);
+  transition:0.4s;
+}
+
+.waffle-card:hover{
+  transform:translateY(-15px);
+}
+
+/* EXPERIENCE SPLIT */
+
+.experience{
+  padding:160px 120px;
+  display:flex;
+  gap:100px;
+  align-items:center;
+}
+
+.experience img{
+  width:50%;
+  border-radius:20px;
+}
+
+.experience-text{
+  width:50%;
+}
+
+.experience-text h2{
+  font-size:3rem;
+  margin-bottom:30px;
+}
+
+/* STATS */
+
+.stats{
+  background:#f47c20;
+  color:white;
+  padding:150px 120px;
+  display:flex;
+  justify-content:space-around;
+  text-align:center;
+}
+
+.stat h2{
+  font-size:4rem;
+  margin-bottom:15px;
+}
+
+/* TESTIMONIALS */
+
+.testimonials{
+  padding:180px 120px;
+  background:#fff3e0;
+}
+
+.testimonial-wrapper{
+  display:flex;
+  gap:50px;
+  margin-top:80px;
+}
+
+.testimonial-card{
+  background:white;
+  padding:50px;
+  border-radius:20px;
+  box-shadow:0 20px 50px rgba(0,0,0,0.08);
+  flex:1;
+}
+
+.testimonial-card p{
+  font-size:1.2rem;
+  margin-bottom:20px;
+}
+
+.testimonial-card h4{
+  color:#f47c20;
+}
+
+/* FRANCHISE */
+
+.franchise{
+  background:#2b1408;
+  color:white;
+  padding:180px 120px;
+  text-align:center;
+}
+
+.franchise h2{
+  font-size:3rem;
+  margin-bottom:30px;
+}
+
+/* FOOTER */
+
+footer{
+  background:#1a0d06;
+  color:white;
+  padding:100px 120px;
+  text-align:center;
+}

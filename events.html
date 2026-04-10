@@ -1,0 +1,1227 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Events | The Waffle Busters</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=Playfair+Display:wght@700;800;900&display=swap" rel="stylesheet">
+
+  <style>
+  :root{
+    --brand:#f97316;
+    --brand-dark:#dc5f0a;
+    --brand-soft:#fff4ea;
+    --cream:#fffaf5;
+    --cream-2:#fff1e3;
+    --surface:#ffffff;
+    --surface-2:#fff7ef;
+    --text:#1f140c;
+    --text-soft:#6f4b32;
+    --heading:#120b07;
+    --line:rgba(31,20,12,0.10);
+    --line-strong:rgba(31,20,12,0.16);
+    --shadow:0 18px 50px rgba(133,58,8,0.10);
+    --shadow-strong:0 24px 70px rgba(133,58,8,0.16);
+    --radius:26px;
+  }
+
+  *{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+  }
+
+  html{
+    scroll-behavior:smooth;
+  }
+
+  body{
+    font-family:'Manrope',sans-serif;
+    background:
+      radial-gradient(circle at 10% 0%, rgba(249,115,22,.10), transparent 18%),
+      radial-gradient(circle at 100% 10%, rgba(249,115,22,.08), transparent 20%),
+      linear-gradient(180deg, #fffaf5 0%, #fff3e8 100%);
+    color:var(--text);
+    overflow-x:hidden;
+    -webkit-font-smoothing:antialiased;
+    text-rendering:optimizeLegibility;
+  }
+
+  a{
+    text-decoration:none;
+    color:inherit;
+  }
+
+  img{
+    display:block;
+    max-width:100%;
+  }
+
+  .container{
+    width:min(1240px, calc(100% - 32px));
+    margin:auto;
+  }
+
+  /* NAVBAR SAME AS OTHER PAGES */
+  .navbar{
+    position:fixed;
+    top:0;
+    left:0;
+    width:100%;
+    z-index:1200;
+    background:rgba(255,250,245,.92);
+    backdrop-filter:blur(16px);
+    border-bottom:1px solid rgba(31,20,12,.06);
+    box-shadow:0 8px 24px rgba(0,0,0,.04);
+  }
+
+  .nav-inner{
+    min-height:80px;
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    gap:18px;
+    position:relative;
+  }
+
+.logo{
+  display:flex;
+  align-items:center;
+  gap:22px;
+  min-width:0;
+  position:relative;
+  z-index:1202;
+  overflow:visible;
+}
+
+.logo-img{
+  width:70px;
+  height:70px;
+  object-fit:contain;
+  flex-shrink:0;
+  background:transparent;
+  border-radius:0;
+  padding:0;
+  box-shadow:none;
+  transform:scale(1.32);
+  transform-origin:left center;
+}
+
+  .logo-text{
+    min-width:0;
+  }
+
+  .logo-text h2{
+    font-family:'Playfair Display',serif;
+    font-size:1.2rem;
+    font-weight:900;
+    letter-spacing:.35px;
+    color:var(--heading);
+    line-height:1.05;
+    text-transform:uppercase;
+  }
+
+  .logo-text p{
+    font-size:.74rem;
+    color:var(--brand-dark);
+    margin-top:4px;
+    white-space:nowrap;
+    font-weight:800;
+    letter-spacing:.7px;
+    text-transform:uppercase;
+  }
+
+  .nav-toggle{
+    display:none;
+    width:46px;
+    height:46px;
+    border:none;
+    border-radius:14px;
+    background:#fff;
+    border:1px solid rgba(31,20,12,.08);
+    align-items:center;
+    justify-content:center;
+    cursor:pointer;
+    position:relative;
+    z-index:1202;
+    flex-shrink:0;
+    box-shadow:0 10px 24px rgba(0,0,0,.05);
+  }
+
+  .nav-toggle span{
+    position:absolute;
+    width:22px;
+    height:2px;
+    border-radius:999px;
+    background:var(--heading);
+    transition:.28s ease;
+  }
+
+  .nav-toggle span:nth-child(1){transform:translateY(-7px);}
+  .nav-toggle span:nth-child(2){transform:translateY(0);}
+  .nav-toggle span:nth-child(3){transform:translateY(7px);}
+
+  .nav-toggle.active span:nth-child(1){transform:translateY(0) rotate(45deg);}
+  .nav-toggle.active span:nth-child(2){opacity:0;}
+  .nav-toggle.active span:nth-child(3){transform:translateY(0) rotate(-45deg);}
+
+  .nav-links{
+    display:flex;
+    align-items:center;
+  }
+
+  .navbar ul{
+    display:flex;
+    align-items:center;
+    gap:20px;
+    list-style:none;
+    flex-wrap:wrap;
+    justify-content:flex-end;
+  }
+
+  .navbar a{
+    font-weight:800;
+    color:var(--heading);
+    position:relative;
+    transition:.25s ease;
+    font-size:.92rem;
+  }
+
+  .navbar a:hover,
+  .navbar a.active{
+    color:var(--brand-dark);
+  }
+
+  .navbar a::after{
+    content:"";
+    position:absolute;
+    left:0;
+    bottom:-6px;
+    width:0;
+    height:2px;
+    background:linear-gradient(90deg, var(--brand), var(--brand-dark));
+    transition:.25s ease;
+  }
+
+  .navbar a:hover::after,
+  .navbar a.active::after{
+    width:100%;
+  }
+
+  .nav-cta{
+    padding:11px 18px;
+    border-radius:999px;
+    background:linear-gradient(135deg,var(--brand),var(--brand-dark));
+    color:#fff !important;
+    font-weight:900 !important;
+    box-shadow:0 12px 26px rgba(249,115,22,.24);
+  }
+
+  .nav-cta::after{
+    display:none !important;
+  }
+
+  .nav-overlay{
+    display:none;
+  }
+
+  /* HERO */
+  .hero{
+    padding:108px 0 34px;
+  }
+
+  .hero-wrap{
+    display:grid;
+    grid-template-columns:minmax(0,1.05fr) minmax(0,.95fr);
+    gap:24px;
+    align-items:stretch;
+  }
+
+  .hero-copy{
+    background:var(--white, #ffffff);
+    border:1px solid var(--line);
+    border-radius:30px;
+    padding:34px;
+    box-shadow:var(--shadow);
+    min-width:0;
+  }
+
+  .eyebrow{
+    display:inline-flex;
+    align-items:center;
+    gap:10px;
+    padding:10px 14px;
+    border-radius:999px;
+    background:#fff4ea;
+    border:1px solid rgba(249,115,22,0.12);
+    color:var(--brand-dark);
+    font-weight:800;
+    margin-bottom:18px;
+    font-size:.88rem;
+    max-width:100%;
+  }
+
+  .hero-copy h1{
+    font-family:'Playfair Display',serif;
+    font-size:clamp(2.3rem, 6vw, 4.8rem);
+    line-height:.94;
+    font-weight:900;
+    color:var(--heading);
+    letter-spacing:.4px;
+    text-transform:uppercase;
+  }
+
+  .hero-copy h1 span{
+    display:block;
+    background:linear-gradient(135deg, #d15a00 0%, #f47c20 45%, #ffb703 100%);
+    -webkit-background-clip:text;
+    background-clip:text;
+    color:transparent;
+  }
+
+  .hero-copy p{
+    margin-top:18px;
+    color:var(--text-soft);
+    line-height:1.82;
+    font-size:.98rem;
+    max-width:700px;
+  }
+
+  .hero-actions{
+    margin-top:24px;
+    display:flex;
+    flex-wrap:wrap;
+    gap:12px;
+  }
+
+  .btn{
+    display:inline-flex;
+    align-items:center;
+    justify-content:center;
+    min-height:52px;
+    padding:14px 22px;
+    border-radius:999px;
+    font-weight:800;
+    transition:.25s ease;
+    border:1px solid transparent;
+    text-align:center;
+    font-size:.95rem;
+  }
+
+  .btn-primary{
+    background:linear-gradient(135deg,var(--brand),var(--brand-dark));
+    color:#fff;
+    box-shadow:0 18px 35px rgba(249,115,22,0.16);
+  }
+
+  .btn-primary:hover{
+    transform:translateY(-4px);
+  }
+
+  .btn-secondary{
+    background:#fff8f2;
+    border-color:rgba(43,20,8,0.08);
+    color:var(--heading);
+  }
+
+  .btn-secondary:hover{
+    transform:translateY(-4px);
+    background:#fff1e6;
+  }
+
+  .hero-side{
+    display:grid;
+    gap:16px;
+    min-width:0;
+  }
+
+  .hero-card{
+    background:#fff;
+    border:1px solid var(--line);
+    border-radius:24px;
+    padding:22px;
+    box-shadow:var(--shadow);
+  }
+
+  .hero-card.image-card{
+    overflow:hidden;
+    padding:0;
+    min-height:240px;
+  }
+
+  .hero-card.image-card img{
+    width:100%;
+    height:100%;
+    object-fit:cover;
+  }
+
+  .hero-card h3{
+    font-size:1.26rem;
+    color:var(--heading);
+    margin-bottom:10px;
+    line-height:1.15;
+  }
+
+  .hero-card p{
+    color:var(--text-soft);
+    line-height:1.75;
+    font-size:.94rem;
+  }
+
+  /* SIMPLE SECTION HEAD */
+  .section-head{
+    margin-bottom:34px;
+    text-align:center;
+  }
+
+  .section-head .mini{
+    color:var(--brand-dark);
+    font-weight:900;
+    letter-spacing:2px;
+    text-transform:uppercase;
+    margin-bottom:10px;
+    font-size:.82rem;
+  }
+
+  .section-head h2{
+    font-family:'Playfair Display',serif;
+    font-size:clamp(1.9rem, 5vw, 3.2rem);
+    line-height:1.08;
+    font-weight:900;
+    color:var(--heading);
+  }
+
+  .section-head p{
+    margin:14px auto 0;
+    max-width:760px;
+    color:var(--text-soft);
+    line-height:1.8;
+    font-size:.96rem;
+  }
+
+  /* COLLEGE SECTION */
+  .college-section{
+    padding:30px 0 24px;
+  }
+
+  .college-grid{
+    display:grid;
+    grid-template-columns:repeat(3,minmax(0,1fr));
+    gap:16px;
+  }
+
+  .college-card{
+    background:#fff;
+    border:1px solid var(--line);
+    border-radius:24px;
+    padding:24px;
+    box-shadow:var(--shadow);
+    transition:.25s ease;
+  }
+
+  .college-card:hover{
+    transform:translateY(-6px);
+  }
+
+  .college-icon{
+    width:54px;
+    height:54px;
+    border-radius:16px;
+    background:linear-gradient(135deg,var(--brand),var(--brand-dark));
+    color:#fff;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    font-size:1.25rem;
+    font-weight:900;
+    margin-bottom:16px;
+  }
+
+  .college-card h3{
+    font-size:1.14rem;
+    margin-bottom:10px;
+    color:var(--heading);
+    line-height:1.2;
+  }
+
+  .college-card p{
+    color:var(--text-soft);
+    line-height:1.75;
+    font-size:.92rem;
+  }
+
+  /* CATERING */
+  .catering{
+    padding:40px 0 30px;
+  }
+
+  .catering-box{
+    background:linear-gradient(135deg, #fff0e3, #fff8f1);
+    border:1px solid rgba(249,115,22,0.14);
+    border-radius:28px;
+    padding:30px;
+    display:grid;
+    grid-template-columns:minmax(0,1fr) minmax(0,1fr);
+    gap:20px;
+    align-items:center;
+    box-shadow:var(--shadow);
+  }
+
+  .catering-copy h2{
+    font-family:'Playfair Display',serif;
+    font-size:clamp(1.9rem, 4vw, 2.8rem);
+    line-height:1.08;
+    font-weight:900;
+    color:var(--heading);
+  }
+
+  .catering-copy p{
+    margin-top:14px;
+    color:var(--text-soft);
+    line-height:1.82;
+    font-size:.96rem;
+  }
+
+  .feature-list{
+    display:grid;
+    gap:12px;
+  }
+
+  .feature-item{
+    background:rgba(255,255,255,0.76);
+    border:1px solid rgba(43,20,8,0.06);
+    border-radius:18px;
+    padding:16px 16px;
+    color:var(--heading);
+    font-weight:700;
+    font-size:.92rem;
+    line-height:1.45;
+  }
+
+  /* EVENT TYPES */
+  .event-types{
+    padding:40px 0 30px;
+  }
+
+  .event-grid{
+    display:grid;
+    grid-template-columns:repeat(4,minmax(0,1fr));
+    gap:16px;
+  }
+
+  .event-card{
+    background:#fff;
+    border:1px solid var(--line);
+    border-radius:22px;
+    padding:22px;
+    box-shadow:var(--shadow);
+  }
+
+  .event-card h4{
+    font-size:1rem;
+    margin-bottom:10px;
+    color:var(--heading);
+    line-height:1.2;
+  }
+
+  .event-card p{
+    color:var(--text-soft);
+    line-height:1.72;
+    font-size:.9rem;
+  }
+
+  /* CTA */
+  .cta{
+    padding:40px 0 80px;
+  }
+
+  .cta-box{
+    text-align:center;
+    background:#fff;
+    border:1px solid var(--line);
+    border-radius:28px;
+    padding:38px 24px;
+    box-shadow:var(--shadow);
+  }
+
+  .cta-box h2{
+    font-family:'Playfair Display',serif;
+    font-size:clamp(1.9rem, 4vw, 3rem);
+    color:var(--heading);
+    font-weight:900;
+    line-height:1.1;
+  }
+
+  .cta-box p{
+    margin:14px auto 0;
+    max-width:760px;
+    color:var(--text-soft);
+    line-height:1.8;
+    font-size:.96rem;
+  }
+
+  .cta-actions{
+    margin-top:24px;
+    display:flex;
+    justify-content:center;
+    gap:12px;
+    flex-wrap:wrap;
+  }
+
+  /* FOOTER */
+  footer{
+    padding:58px 0 28px;
+    background:linear-gradient(180deg,var(--brand),var(--brand-dark));
+    border-top:1px solid rgba(255,255,255,0.08);
+  }
+
+  .footer-grid{
+    display:grid;
+    grid-template-columns:1.1fr .9fr .9fr;
+    gap:16px;
+  }
+
+  .footer-card{
+    background:rgba(255,255,255,0.12);
+    border:1px solid rgba(255,255,255,0.18);
+    border-radius:22px;
+    padding:22px;
+  }
+
+  .footer-card h3{
+    color:#fff;
+    font-size:1.14rem;
+    margin-bottom:12px;
+    font-weight:900;
+  }
+
+  .footer-card p,
+  .footer-card li,
+  .footer-card a{
+    color:#fff7ef;
+    line-height:1.75;
+    font-size:.92rem;
+  }
+
+  .footer-card ul{
+    list-style:none;
+  }
+
+  .footer-card li + li{
+    margin-top:6px;
+  }
+
+  .footer-bottom{
+    margin-top:18px;
+    text-align:center;
+    color:#fff1e5;
+    font-size:.86rem;
+  }
+
+  @media (max-width:1100px){
+    .hero-wrap,
+    .catering-box,
+    .footer-grid{
+      grid-template-columns:1fr;
+    }
+
+    .college-grid{
+      grid-template-columns:1fr 1fr;
+    }
+
+    .event-grid{
+      grid-template-columns:1fr 1fr;
+    }
+  }
+
+  @media (max-width:900px){
+    .nav-toggle{
+      display:flex;
+    }
+
+    .nav-links{
+      position:fixed;
+      top:0;
+      right:-100%;
+      width:min(88vw, 360px);
+      height:100svh;
+      background:linear-gradient(180deg,#fffaf5,#fff2e6);
+      border-left:1px solid rgba(31,20,12,.08);
+      box-shadow:-20px 0 50px rgba(0,0,0,.12);
+      padding:88px 20px 28px;
+      transition:.34s ease;
+      display:flex;
+      align-items:flex-start;
+      justify-content:flex-start;
+      z-index:1201;
+    }
+
+    .nav-links.active{
+      right:0;
+    }
+
+    .nav-links ul{
+      width:100%;
+      flex-direction:column;
+      align-items:flex-start;
+      gap:8px;
+    }
+
+    .nav-links li{
+      width:100%;
+    }
+
+    .nav-links a{
+      display:block;
+      width:100%;
+      padding:14px 14px;
+      border-radius:16px;
+      font-size:1rem;
+    }
+
+    .nav-links a:hover{
+      background:rgba(249,115,22,.08);
+    }
+
+    .nav-links a::after{
+      display:none;
+    }
+
+    .nav-links .nav-cta{
+      margin-top:8px;
+      text-align:center;
+    }
+
+    .nav-overlay{
+      display:block;
+      position:fixed;
+      inset:0;
+      background:rgba(0,0,0,.35);
+      backdrop-filter:blur(3px);
+      opacity:0;
+      visibility:hidden;
+      transition:.28s ease;
+      z-index:1200;
+    }
+
+    .nav-overlay.active{
+      opacity:1;
+      visibility:visible;
+    }
+
+    .hero{
+      padding:86px 0 26px;
+    }
+
+    .college-grid,
+    .event-grid,
+    .footer-grid{
+      grid-template-columns:1fr;
+    }
+
+    .container{
+      width:min(100% - 24px, 1240px);
+    }
+
+    .hero-copy,
+    .catering-box,
+    .cta-box{
+      padding:24px 20px;
+    }
+  }
+
+  @media (max-width:640px){
+    .container{
+      width:min(100% - 20px, 1240px);
+    }
+
+    .nav-inner{
+      min-height:72px;
+    }
+
+  .logo-img{
+  width:58px;
+  height:58px;
+  object-fit:contain;
+  flex-shrink:0;
+  background:transparent;
+  border-radius:0;
+  padding:0;
+  box-shadow:none;
+  transform:scale(1.16);
+  transform-origin:left center;
+}
+
+    .logo-text h2{
+      font-size:.95rem;
+      letter-spacing:.3px;
+    }
+
+    .logo-text p{
+      font-size:.62rem;
+      letter-spacing:.45px;
+      max-width:140px;
+      overflow:hidden;
+      text-overflow:ellipsis;
+    }
+
+    .hero{
+      padding:84px 0 18px;
+    }
+
+    .hero-copy{
+      padding:20px 16px;
+      border-radius:22px;
+    }
+
+    .eyebrow{
+      font-size:.78rem;
+      padding:8px 11px;
+      margin-bottom:14px;
+    }
+
+    .hero-copy h1{
+      font-size:2rem;
+      line-height:.98;
+      letter-spacing:.2px;
+    }
+
+    .hero-copy p{
+      margin-top:14px;
+      font-size:.91rem;
+      line-height:1.68;
+    }
+
+    .hero-actions,
+    .cta-actions{
+      flex-direction:column;
+      gap:10px;
+    }
+
+    .btn{
+      width:100%;
+      min-height:50px;
+      padding:13px 16px;
+      font-size:.92rem;
+    }
+
+    .hero-side{
+      gap:12px;
+    }
+
+    .hero-card{
+      padding:18px 16px;
+      border-radius:20px;
+    }
+
+    .hero-card.image-card{
+      min-height:190px;
+    }
+
+    .hero-card h3{
+      font-size:1.05rem;
+    }
+
+    .hero-card p{
+      font-size:.88rem;
+      line-height:1.65;
+    }
+
+    .section-head{
+      margin-bottom:26px;
+    }
+
+    .section-head h2{
+      font-size:1.72rem;
+    }
+
+    .section-head p{
+      font-size:.9rem;
+      line-height:1.68;
+    }
+
+    .college-section,
+    .catering,
+    .event-types,
+    .cta{
+      padding-top:28px;
+    }
+
+    .college-section{
+      padding-bottom:18px;
+    }
+
+    .catering,
+    .event-types{
+      padding-bottom:22px;
+    }
+
+    .cta{
+      padding-bottom:60px;
+    }
+
+    .college-card,
+    .event-card,
+    .footer-card{
+      padding:18px 16px;
+      border-radius:18px;
+    }
+
+    .college-icon{
+      width:46px;
+      height:46px;
+      border-radius:14px;
+      font-size:1.08rem;
+      margin-bottom:14px;
+    }
+
+    .college-card h3{
+      font-size:1rem;
+    }
+
+    .college-card p,
+    .event-card p,
+    .footer-card p,
+    .footer-card li,
+    .footer-card a{
+      font-size:.87rem;
+    }
+
+    .catering-box{
+      padding:20px 16px;
+      border-radius:22px;
+    }
+
+    .catering-copy h2{
+      font-size:1.7rem;
+    }
+
+    .catering-copy p{
+      font-size:.9rem;
+      line-height:1.68;
+    }
+
+    .feature-item{
+      padding:14px 14px;
+      font-size:.86rem;
+    }
+
+    .event-card h4{
+      font-size:.95rem;
+    }
+
+    .cta-box{
+      padding:24px 16px;
+      border-radius:22px;
+    }
+
+    .cta-box h2{
+      font-size:1.72rem;
+    }
+
+    .cta-box p{
+      font-size:.9rem;
+      line-height:1.68;
+    }
+
+    footer{
+      padding:44px 0 24px;
+    }
+
+    .footer-card h3{
+      font-size:1.02rem;
+    }
+
+    .footer-bottom{
+      font-size:.82rem;
+    }
+  }
+
+  @media (max-width:420px){
+    .hero-copy h1{
+      font-size:1.78rem;
+    }
+
+    .section-head h2,
+    .cta-box h2,
+    .catering-copy h2{
+      font-size:1.54rem;
+    }
+
+    .hero-card.image-card{
+      min-height:170px;
+    }
+  }
+</style>
+</head>
+<body>
+
+  <div class="nav-overlay" id="navOverlay"></div>
+
+  <nav class="navbar">
+  <div class="container nav-inner">
+    <a href="index.html#home" class="logo">
+      <img src="assets/images/logo.png" alt="The Waffle Busters Logo" class="logo-img">
+      <div class="logo-text">
+        <h2>The Waffle Busters</h2>
+        <p>TASTE FROM THE WORLD</p>
+      </div>
+    </a>
+
+    <button class="nav-toggle" id="navToggle" aria-label="Open menu" aria-expanded="false">
+      <span></span>
+      <span></span>
+      <span></span>
+    </button>
+
+    <div class="nav-links" id="navLinks">
+      <ul>
+        <li><a href="index.html#home">Home</a></li>
+        <li><a href="menu.html">Menu</a></li>
+        <li><a href="franchise.html">Franchise</a></li>
+        <li><a href="events.html" class="active">Events</a></li>
+        <li><a href="about.html">About</a></li>
+        <li><a href="contact.html">Contact</a></li>
+        <li><a href="menu.html" class="nav-cta">Order Now</a></li>
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  <section class="hero">
+    <div class="container hero-wrap">
+      <div class="hero-copy">
+        <div class="eyebrow">🎉 Events & campus dessert setups</div>
+        <h1>
+          WE COVER
+          <span>EVENTS TOO</span>
+        </h1>
+        <p>
+          The Waffle Busters is available for college events, youth festivals, food stalls,
+          special setups and catering requirements. We bring a fun, premium dessert vibe that
+          fits perfectly into high-energy campus and community events.
+        </p>
+        <p>
+          We already cover colleges like <strong>BML Munjal University</strong>,
+          <strong>Amity</strong> and <strong>NIIT Neemrana</strong>, and we are also available
+          for catering and custom event setups.
+        </p>
+
+        <div class="hero-actions">
+          <a href="contact.html" class="btn btn-primary">Contact Us for Events</a>
+          <a href="menu.html" class="btn btn-secondary">See Menu</a>
+        </div>
+      </div>
+
+      <div class="hero-side">
+        <div class="hero-card image-card">
+          <img src="https://images.pexels.com/photos/2747449/pexels-photo-2747449.jpeg?cs=srgb&dl=pexels-wolfgang-1002140-2747449.jpg&fm=jpg" alt="Dessert event setup">
+        </div>
+        <div class="hero-card">
+          <h3>Perfect for crowd-pulling setups</h3>
+          <p>
+            Waffles, pancakes, shakes and premium dessert favourites make our stall attractive for
+            students, youth audiences, college fests and event catering.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="college-section">
+    <div class="container">
+      <div class="section-head">
+        <div class="mini">College Coverage</div>
+        <h2>We are already serving campus energy.</h2>
+        <p>
+          Our event presence is designed to match the vibe of student crowds, college fests and
+          active youth spaces with dessert items that look exciting and sell well.
+        </p>
+      </div>
+
+      <div class="college-grid">
+        <div class="college-card">
+          <div class="college-icon">🎓</div>
+          <h3>BML Munjal University</h3>
+          <p>
+            Available for college events, student gatherings, activity zones and sweet crowd engagement.
+          </p>
+        </div>
+
+        <div class="college-card">
+          <div class="college-icon">🏫</div>
+          <h3>Amity</h3>
+          <p>
+            Great fit for youth-heavy events, food stalls, branded dessert counters and campus activations.
+          </p>
+        </div>
+
+        <div class="college-card">
+          <div class="college-icon">⚡</div>
+          <h3>NIIT Neemrana</h3>
+          <p>
+            Strong event appeal for technical campuses, fest stalls, student hangout zones and special setups.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="catering">
+    <div class="container">
+      <div class="catering-box">
+        <div class="catering-copy">
+          <h2>Also available for catering.</h2>
+          <p>
+            Beyond college coverage, The Waffle Busters is also available for catering support for
+            special occasions, social events, private gatherings and custom dessert requirements.
+          </p>
+          <p>
+            We can help create a simple but premium dessert presence with waffles, shakes, pancakes
+            and other sweet favourites that match the mood of the event.
+          </p>
+        </div>
+
+        <div class="feature-list">
+          <div class="feature-item">Custom dessert stall setups</div>
+          <div class="feature-item">College fest and youth event support</div>
+          <div class="feature-item">Private function and social gathering catering</div>
+          <div class="feature-item">Easy inquiry through contact page</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="event-types">
+    <div class="container">
+      <div class="section-head">
+        <div class="mini">Best Fit</div>
+        <h2>Where our event setup works best.</h2>
+      </div>
+
+      <div class="event-grid">
+        <div class="event-card">
+          <h4>College Festivals</h4>
+          <p>Ideal for food zones, student events, club festivals and high-footfall college spaces.</p>
+        </div>
+
+        <div class="event-card">
+          <h4>Campus Activations</h4>
+          <p>Good for branded setups, youth engagement and fun dessert counters inside institutions.</p>
+        </div>
+
+        <div class="event-card">
+          <h4>Private Catering</h4>
+          <p>Suitable for birthday setups, parties, celebrations and sweet live-counter style service.</p>
+        </div>
+
+        <div class="event-card">
+          <h4>Special Events</h4>
+          <p>Works well for gatherings where you want a premium, youthful and visually attractive food option.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="cta">
+    <div class="container">
+      <div class="cta-box">
+        <h2>Want us at your college or event?</h2>
+        <p>
+          For college stalls, campus events, catering and special setup inquiries, just go to our
+          contact page and connect with us directly.
+        </p>
+
+        <div class="cta-actions">
+          <a href="contact.html" class="btn btn-primary">Contact Us</a>
+          <a href="index.html#home" class="btn btn-secondary">Back to Home</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-card">
+          <h3>The Waffle Busters</h3>
+          <p>
+            Premium dessert brand available for college events, youth spaces, catering setups and
+            memorable sweet experiences.
+          </p>
+        </div>
+
+        <div class="footer-card">
+          <h3>Quick Links</h3>
+          <ul>
+            <li><a href="index.html#home">Home</a></li>
+            <li><a href="menu.html">Menu</a></li>
+            <li><a href="franchise.html">Franchise</a></li>
+            <li><a href="events.html">Events</a></li>
+            <li><a href="about.html">About</a></li>
+            <li><a href="contact.html">Contact</a></li>
+          </ul>
+        </div>
+
+        <div class="footer-card">
+          <h3>Event Coverage</h3>
+          <ul>
+            <li>BML Munjal University</li>
+            <li>Amity</li>
+            <li>NIIT Neemrana</li>
+            <li>Also available for catering</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="footer-bottom">
+        © 2026 The Waffle Busters. All Rights Reserved.
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    const navToggle = document.getElementById("navToggle");
+    const navLinks = document.getElementById("navLinks");
+    const navOverlay = document.getElementById("navOverlay");
+    const navItems = document.querySelectorAll(".nav-links a");
+
+    function closeMenu() {
+      navToggle.classList.remove("active");
+      navLinks.classList.remove("active");
+      navOverlay.classList.remove("active");
+      navToggle.setAttribute("aria-expanded", "false");
+      document.body.style.overflow = "";
+    }
+
+    function openMenu() {
+      navToggle.classList.add("active");
+      navLinks.classList.add("active");
+      navOverlay.classList.add("active");
+      navToggle.setAttribute("aria-expanded", "true");
+      document.body.style.overflow = "hidden";
+    }
+
+    navToggle.addEventListener("click", () => {
+      const isOpen = navLinks.classList.contains("active");
+      isOpen ? closeMenu() : openMenu();
+    });
+
+    navOverlay.addEventListener("click", closeMenu);
+    navItems.forEach(link => link.addEventListener("click", closeMenu));
+
+    window.addEventListener("resize", () => {
+      if (window.innerWidth > 900) {
+        closeMenu();
+      }
+    });
+  </script>
+
+
+  <!-- Floating Order Now -->
+<a href="menu.html" style="position:fixed;right:14px;bottom:14px;z-index:1000;background:linear-gradient(135deg,#f97316,#dc5f0a);color:#fff;font-weight:900;padding:13px 20px;border-radius:999px;box-shadow:0 16px 36px rgba(249,115,22,.28);font-size:.9rem;text-decoration:none;font-family:'Manrope',sans-serif;">Order Now</a>
+</body>
+</html>

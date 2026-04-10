@@ -1,0 +1,1541 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Franchise | The Waffle Busters</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=Playfair+Display:wght@700;800;900&display=swap" rel="stylesheet">
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+
+  <style>
+  :root{
+    --brand:#f97316;
+    --brand-dark:#dc5f0a;
+    --brand-soft:#fff4ea;
+    --cream:#fffaf5;
+    --cream-2:#fff1e3;
+    --surface:#ffffff;
+    --surface-2:#fff7ef;
+    --text:#1f140c;
+    --text-soft:#6f4b32;
+    --heading:#120b07;
+    --line:rgba(31,20,12,0.10);
+    --line-strong:rgba(31,20,12,0.16);
+    --shadow:0 18px 50px rgba(133,58,8,0.10);
+    --shadow-strong:0 24px 70px rgba(133,58,8,0.16);
+    --radius:24px;
+    --radius-lg:30px;
+  }
+
+  *{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+  }
+
+  html{
+    scroll-behavior:smooth;
+  }
+
+  body{
+    font-family:'Manrope',sans-serif;
+    background:
+      radial-gradient(circle at 10% 0%, rgba(249,115,22,.10), transparent 18%),
+      radial-gradient(circle at 100% 10%, rgba(249,115,22,.08), transparent 20%),
+      linear-gradient(180deg,#fffaf5 0%, #fff4ea 48%, #fff9f4 100%);
+    color:var(--text);
+    overflow-x:hidden;
+    -webkit-font-smoothing:antialiased;
+    text-rendering:optimizeLegibility;
+  }
+
+  a{
+    text-decoration:none;
+    color:inherit;
+  }
+
+  img{
+    display:block;
+    max-width:100%;
+  }
+
+  section{
+    position:relative;
+  }
+
+  .container{
+    width:min(1240px, calc(100% - 32px));
+    margin:auto;
+  }
+
+  /* NAVBAR - SAME FAMILY */
+  .navbar{
+    position:fixed;
+    top:0;
+    left:0;
+    width:100%;
+    z-index:1200;
+    padding:14px 0;
+    transition:.3s ease;
+    background:rgba(255,250,245,.88);
+    backdrop-filter:blur(14px);
+    border-bottom:1px solid rgba(31,20,12,.06);
+  }
+
+  .navbar.scrolled{
+    background:rgba(255,248,241,.96);
+    border-bottom:1px solid rgba(31,20,12,.10);
+    box-shadow:0 10px 35px rgba(0,0,0,0.06);
+  }
+
+  .nav-inner{
+    width:min(1240px, calc(100% - 32px));
+    margin:auto;
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    gap:18px;
+    min-height:60px;
+  }
+
+ .logo{
+  display:flex;
+  align-items:center;
+  gap:22px;
+  min-width:0;
+  position:relative;
+  z-index:1202;
+  overflow:visible;
+}
+
+.logo-badge{
+  width:70px;
+  height:70px;
+  background:transparent;
+  box-shadow:none;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  overflow:visible;
+  padding:0;
+  border-radius:0;
+  flex-shrink:0;
+}
+
+ .logo-badge img{
+  width:100%;
+  height:100%;
+  object-fit:contain;
+  transform:scale(1.32);
+  transform-origin:left center;
+}
+
+  .logo-text{
+    min-width:0;
+  }
+
+  .logo-text h2{
+    font-family:'Playfair Display',serif;
+    font-size:1.28rem;
+    font-weight:900;
+    color:var(--heading);
+    line-height:1.02;
+    letter-spacing:.4px;
+    text-transform:uppercase;
+  }
+
+  .logo-text p{
+    font-size:.76rem;
+    color:var(--brand-dark);
+    margin-top:4px;
+    white-space:nowrap;
+    font-weight:800;
+    letter-spacing:.8px;
+    text-transform:uppercase;
+  }
+
+  .nav-toggle{
+    display:none;
+    width:46px;
+    height:46px;
+    border:none;
+    border-radius:14px;
+    background:#fff;
+    border:1px solid rgba(31,20,12,.08);
+    align-items:center;
+    justify-content:center;
+    cursor:pointer;
+    position:relative;
+    z-index:1202;
+    flex-shrink:0;
+    box-shadow:0 10px 24px rgba(0,0,0,.05);
+  }
+
+  .nav-toggle span{
+    position:absolute;
+    width:22px;
+    height:2px;
+    border-radius:999px;
+    background:var(--heading);
+    transition:.28s ease;
+  }
+
+  .nav-toggle span:nth-child(1){transform:translateY(-7px);}
+  .nav-toggle span:nth-child(2){transform:translateY(0);}
+  .nav-toggle span:nth-child(3){transform:translateY(7px);}
+
+  .nav-toggle.active span:nth-child(1){transform:translateY(0) rotate(45deg);}
+  .nav-toggle.active span:nth-child(2){opacity:0;}
+  .nav-toggle.active span:nth-child(3){transform:translateY(0) rotate(-45deg);}
+
+  .nav-links{
+    display:flex;
+    align-items:center;
+    gap:12px;
+  }
+
+  .navbar ul{
+    display:flex;
+    gap:18px;
+    list-style:none;
+    align-items:center;
+    flex-wrap:wrap;
+    justify-content:flex-end;
+  }
+
+  .navbar a{
+    color:var(--heading);
+    font-weight:800;
+    font-size:.95rem;
+    transition:.25s ease;
+    position:relative;
+  }
+
+  .navbar a:hover,
+  .navbar a.active{
+    color:var(--brand-dark);
+  }
+
+  .navbar a::after{
+    content:"";
+    position:absolute;
+    left:0;
+    bottom:-8px;
+    width:0;
+    height:2px;
+    background:linear-gradient(90deg,var(--brand),var(--brand-dark));
+    transition:.25s ease;
+  }
+
+  .navbar a:hover::after,
+  .navbar a.active::after{
+    width:100%;
+  }
+
+  .nav-cta{
+    padding:12px 18px;
+    border-radius:999px;
+    border:1px solid transparent;
+    background:linear-gradient(135deg,var(--brand),var(--brand-dark));
+    color:#fff !important;
+    font-weight:900 !important;
+    box-shadow:0 14px 28px rgba(249,115,22,0.20);
+  }
+
+  .nav-cta::after{
+    display:none;
+  }
+
+  .nav-overlay{
+    display:none;
+  }
+
+  /* HERO */
+  .franchise-hero{
+    padding:130px 0 70px;
+  }
+
+  .hero-wrap{
+    display:grid;
+    grid-template-columns:minmax(0,1.15fr) minmax(0,.85fr);
+    gap:22px;
+    align-items:stretch;
+  }
+
+  .hero-copy{
+    background:#fff;
+    border:1px solid rgba(31,20,12,.08);
+    border-radius:var(--radius-lg);
+    padding:36px;
+    box-shadow:var(--shadow);
+    min-width:0;
+  }
+
+  .eyebrow{
+    display:inline-flex;
+    align-items:center;
+    gap:10px;
+    padding:10px 15px;
+    border-radius:999px;
+    background:#fff7ef;
+    border:1px solid rgba(31,20,12,.08);
+    color:var(--brand-dark);
+    font-weight:800;
+    margin-bottom:18px;
+    font-size:.9rem;
+    max-width:100%;
+  }
+
+  .hero-copy h1{
+    font-family:'Playfair Display',serif;
+    font-size:clamp(2.4rem, 5.5vw, 4.6rem);
+    line-height:.98;
+    font-weight:900;
+    color:var(--heading);
+    margin-bottom:16px;
+  }
+
+  .hero-copy h1 span{
+    color:var(--brand);
+  }
+
+  .hero-copy p{
+    color:var(--text-soft);
+    font-size:.98rem;
+    line-height:1.82;
+    max-width:700px;
+    margin-top:10px;
+  }
+
+  .hero-actions{
+    margin-top:24px;
+    display:flex;
+    flex-wrap:wrap;
+    gap:12px;
+  }
+
+  .btn{
+    display:inline-flex;
+    align-items:center;
+    justify-content:center;
+    min-height:54px;
+    padding:15px 24px;
+    border-radius:999px;
+    font-weight:800;
+    font-size:.96rem;
+    transition:.25s ease;
+    border:1px solid transparent;
+    text-align:center;
+  }
+
+  .btn-primary{
+    background:linear-gradient(135deg,var(--brand),var(--brand-dark));
+    color:#fff;
+    box-shadow:0 16px 30px rgba(249,115,22,.18);
+  }
+
+  .btn-primary:hover{
+    transform:translateY(-4px);
+  }
+
+  .btn-secondary{
+    background:#fff;
+    border-color:rgba(31,20,12,.10);
+    color:var(--heading);
+  }
+
+  .btn-secondary:hover{
+    transform:translateY(-4px);
+    background:var(--surface-2);
+  }
+
+  .hero-points{
+    display:grid;
+    gap:14px;
+    min-width:0;
+  }
+
+  .point-card{
+    background:#fff;
+    border:1px solid rgba(31,20,12,.08);
+    border-radius:22px;
+    padding:22px;
+    box-shadow:var(--shadow);
+  }
+
+  .point-card h3{
+    font-size:1.04rem;
+    font-weight:800;
+    margin-bottom:8px;
+    color:var(--heading);
+  }
+
+  .point-card p{
+    color:var(--text-soft);
+    line-height:1.72;
+    font-size:.92rem;
+  }
+
+  /* SECTION HEAD */
+  .section-head{
+    text-align:center;
+    margin-bottom:38px;
+  }
+
+  .section-head .mini{
+    color:var(--brand-dark);
+    font-weight:900;
+    letter-spacing:2px;
+    text-transform:uppercase;
+    margin-bottom:12px;
+    font-size:.82rem;
+  }
+
+  .section-head h2{
+    font-family:'Playfair Display',serif;
+    font-size:clamp(1.95rem, 4.2vw, 3.1rem);
+    line-height:1.12;
+    color:var(--heading);
+  }
+
+  .section-head p{
+    margin:14px auto 0;
+    max-width:760px;
+    color:var(--text-soft);
+    font-size:.97rem;
+    line-height:1.78;
+  }
+
+  /* WHY */
+  .why-franchise{
+    padding:18px 0 80px;
+  }
+
+  .why-grid{
+    display:grid;
+    grid-template-columns:repeat(2,minmax(0,1fr));
+    gap:18px;
+  }
+
+  .why-card{
+    background:#fff;
+    border:1px solid rgba(31,20,12,.08);
+    border-radius:24px;
+    padding:26px;
+    box-shadow:var(--shadow);
+  }
+
+  .why-card h3{
+    font-size:1.25rem;
+    font-weight:800;
+    margin-bottom:12px;
+    color:var(--heading);
+  }
+
+  .why-card p{
+    color:var(--text-soft);
+    line-height:1.78;
+    font-size:.95rem;
+  }
+
+  .pill-grid{
+    display:grid;
+    grid-template-columns:repeat(2,minmax(0,1fr));
+    gap:12px;
+    margin-top:10px;
+  }
+
+  .pill{
+    padding:14px 15px;
+    border-radius:18px;
+    background:#fff7ef;
+    border:1px solid rgba(31,20,12,.07);
+    color:var(--heading);
+    font-weight:800;
+    font-size:.9rem;
+    line-height:1.45;
+  }
+
+  /* BENEFITS */
+  .benefits{
+    padding:0 0 84px;
+  }
+
+  .benefit-grid{
+    display:grid;
+    grid-template-columns:repeat(4, minmax(0,1fr));
+    gap:14px;
+  }
+
+  .benefit{
+    background:#fff;
+    border:1px solid rgba(31,20,12,.08);
+    border-radius:22px;
+    padding:22px;
+    box-shadow:var(--shadow);
+    transition:.25s ease;
+  }
+
+  .benefit:hover{
+    transform:translateY(-6px);
+  }
+
+  .benefit .icon{
+    width:52px;
+    height:52px;
+    border-radius:15px;
+    background:linear-gradient(135deg,var(--brand),var(--brand-dark));
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    font-size:1.25rem;
+    color:#fff;
+    margin-bottom:14px;
+  }
+
+  .benefit h4{
+    font-size:1.02rem;
+    margin-bottom:9px;
+    font-weight:800;
+    color:var(--heading);
+  }
+
+  .benefit p{
+    color:var(--text-soft);
+    line-height:1.72;
+    font-size:.9rem;
+  }
+
+  /* MODEL */
+  .model{
+    padding:84px 0;
+    background:linear-gradient(180deg, #fff2e6, #fffaf5);
+    border-top:1px solid rgba(31,20,12,.05);
+    border-bottom:1px solid rgba(31,20,12,.05);
+  }
+
+  .model-wrap{
+    display:grid;
+    grid-template-columns:repeat(2,minmax(0,1fr));
+    gap:22px;
+    align-items:center;
+  }
+
+  .model-copy{
+    background:#fff;
+    border:1px solid rgba(31,20,12,.08);
+    border-radius:26px;
+    padding:30px;
+    box-shadow:var(--shadow);
+  }
+
+  .model-copy .mini{
+    color:var(--brand-dark);
+    font-weight:900;
+    letter-spacing:2px;
+    text-transform:uppercase;
+    margin-bottom:12px;
+    font-size:.82rem;
+  }
+
+  .model-copy h2{
+    font-family:'Playfair Display',serif;
+    font-size:clamp(1.95rem, 4vw, 2.9rem);
+    margin-bottom:16px;
+    line-height:1.12;
+    color:var(--heading);
+  }
+
+  .model-copy p{
+    color:var(--text-soft);
+    font-size:.97rem;
+    line-height:1.82;
+  }
+
+  .model-list{
+    margin-top:20px;
+    display:grid;
+    gap:10px;
+  }
+
+  .model-item{
+    padding:15px 16px;
+    border-radius:18px;
+    background:#fff7ef;
+    border:1px solid rgba(31,20,12,.07);
+    color:var(--heading);
+    font-size:.92rem;
+    line-height:1.65;
+  }
+
+  .model-item strong{
+    color:var(--brand-dark);
+  }
+
+  .model-visual{
+    background:#fff;
+    border:1px solid rgba(31,20,12,.08);
+    border-radius:26px;
+    padding:16px;
+    box-shadow:var(--shadow);
+  }
+
+  .model-image{
+    overflow:hidden;
+    border-radius:20px;
+  }
+
+  .model-image img{
+    width:100%;
+    height:500px;
+    object-fit:cover;
+  }
+
+  .model-note{
+    margin-top:12px;
+    color:var(--text-soft);
+    line-height:1.65;
+    font-size:.9rem;
+    text-align:center;
+  }
+
+  /* PROCESS */
+  .process{
+    padding:84px 0;
+  }
+
+  .process-grid{
+    display:grid;
+    grid-template-columns:repeat(4,minmax(0,1fr));
+    gap:14px;
+  }
+
+  .process-card{
+    background:#fff;
+    border:1px solid rgba(31,20,12,.08);
+    border-radius:22px;
+    padding:22px;
+    box-shadow:var(--shadow);
+    transition:.25s ease;
+  }
+
+  .process-card:hover{
+    transform:translateY(-6px);
+  }
+
+  .step{
+    display:inline-flex;
+    padding:8px 12px;
+    border-radius:999px;
+    background:#fff4ea;
+    border:1px solid rgba(249,115,22,.18);
+    color:var(--brand-dark);
+    font-weight:900;
+    font-size:.78rem;
+    margin-bottom:12px;
+  }
+
+  .process-card h4{
+    font-size:1.02rem;
+    margin-bottom:10px;
+    font-weight:800;
+    color:var(--heading);
+  }
+
+  .process-card p{
+    color:var(--text-soft);
+    line-height:1.72;
+    font-size:.9rem;
+  }
+
+  /* CTA */
+  .franchise-cta{
+    padding:0 0 84px;
+  }
+
+  .cta-box{
+    background:linear-gradient(135deg,#fff4ea,#fff9f4);
+    border:1px solid rgba(31,20,12,.08);
+    border-radius:28px;
+    padding:34px;
+    box-shadow:var(--shadow);
+  }
+
+  .cta-wrap{
+    display:grid;
+    grid-template-columns:minmax(0,1.1fr) minmax(0,.9fr);
+    gap:20px;
+    align-items:center;
+  }
+
+  .cta-copy h2{
+    font-family:'Playfair Display',serif;
+    font-size:clamp(1.95rem, 4vw, 3.1rem);
+    line-height:1.08;
+    color:var(--heading);
+  }
+
+  .cta-copy p{
+    margin-top:14px;
+    color:var(--text-soft);
+    font-size:.97rem;
+    line-height:1.8;
+    max-width:700px;
+  }
+
+  .cta-mini-grid{
+    display:grid;
+    grid-template-columns:repeat(2,minmax(0,1fr));
+    gap:12px;
+  }
+
+  .cta-mini{
+    background:#fff;
+    border:1px solid rgba(31,20,12,.08);
+    border-radius:20px;
+    padding:18px;
+  }
+
+  .cta-mini h4{
+    font-size:.98rem;
+    color:var(--brand-dark);
+    font-weight:800;
+    margin-bottom:8px;
+  }
+
+  .cta-mini p{
+    color:var(--text-soft);
+    line-height:1.65;
+    font-size:.88rem;
+  }
+
+  /* FOOTER */
+  footer{
+    padding:64px 0 30px;
+    background:linear-gradient(180deg,var(--brand),var(--brand-dark));
+    border-top:1px solid rgba(255,255,255,.08);
+  }
+
+  .footer-grid{
+    display:grid;
+    grid-template-columns:1.2fr .8fr .8fr;
+    gap:18px;
+  }
+
+  .footer-card{
+    background:rgba(255,255,255,.12);
+    border:1px solid rgba(255,255,255,.18);
+    border-radius:22px;
+    padding:22px;
+  }
+
+  .footer-card h3{
+    font-size:1.18rem;
+    margin-bottom:12px;
+    font-weight:800;
+    color:#fff;
+  }
+
+  .footer-card p,
+  .footer-card li,
+  .footer-card a{
+    color:#fff7ef;
+    line-height:1.75;
+    font-size:.92rem;
+  }
+
+  .footer-card ul{
+    list-style:none;
+  }
+
+  .footer-card li + li{
+    margin-top:6px;
+  }
+
+  .footer-bottom{
+    text-align:center;
+    margin-top:20px;
+    color:#fff1e5;
+    font-size:.86rem;
+  }
+
+  /* FLOATING */
+  .floating-order{
+    position:fixed;
+    right:14px;
+    bottom:14px;
+    z-index:1000;
+    background:linear-gradient(135deg,var(--brand),var(--brand-dark));
+    color:#fff;
+    font-weight:900;
+    padding:14px 18px;
+    border-radius:999px;
+    box-shadow:0 18px 40px rgba(249,115,22,.24);
+    animation:pulse 2s infinite;
+    font-size:.9rem;
+  }
+
+  @keyframes pulse{
+    0%,100%{ transform:scale(1); }
+    50%{ transform:scale(1.04); }
+  }
+
+  /* RESPONSIVE */
+  @media (max-width:1180px){
+    .hero-wrap,
+    .why-grid,
+    .model-wrap,
+    .cta-wrap,
+    .footer-grid{
+      grid-template-columns:1fr;
+    }
+
+    .benefit-grid,
+    .process-grid{
+      grid-template-columns:1fr 1fr;
+    }
+  }
+
+  @media (max-width:900px){
+    .nav-toggle{
+      display:flex;
+    }
+
+    .nav-links{
+      position:fixed;
+      top:0;
+      right:-100%;
+      width:min(88vw, 360px);
+      height:100svh;
+      background:linear-gradient(180deg,#fffaf5,#fff2e6);
+      border-left:1px solid rgba(31,20,12,.08);
+      box-shadow:-20px 0 50px rgba(0,0,0,.12);
+      padding:92px 20px 28px;
+      transition:.34s ease;
+      display:flex;
+      align-items:flex-start;
+      justify-content:flex-start;
+      z-index:1201;
+    }
+
+    .nav-links.active{
+      right:0;
+    }
+
+    .nav-links ul{
+      width:100%;
+      flex-direction:column;
+      align-items:flex-start;
+      gap:8px;
+    }
+
+    .nav-links li{
+      width:100%;
+    }
+
+    .nav-links a{
+      display:block;
+      width:100%;
+      padding:14px 14px;
+      border-radius:16px;
+      font-size:1rem;
+    }
+
+    .nav-links a:hover{
+      background:rgba(249,115,22,.08);
+    }
+
+    .nav-links a::after{
+      display:none;
+    }
+
+    .nav-links .nav-cta{
+      margin-top:8px;
+      text-align:center;
+    }
+
+    .nav-overlay{
+      display:block;
+      position:fixed;
+      inset:0;
+      background:rgba(0,0,0,.35);
+      backdrop-filter:blur(3px);
+      opacity:0;
+      visibility:hidden;
+      transition:.28s ease;
+      z-index:1200;
+    }
+
+    .nav-overlay.active{
+      opacity:1;
+      visibility:visible;
+    }
+
+    .franchise-hero{
+      padding:112px 0 58px;
+    }
+
+    .benefit-grid,
+    .process-grid{
+      grid-template-columns:1fr;
+    }
+
+    .pill-grid,
+    .cta-mini-grid{
+      grid-template-columns:1fr 1fr;
+    }
+
+    .hero-copy{
+      padding:28px 22px;
+    }
+
+    .model-copy,
+    .cta-box{
+      padding:26px 20px;
+    }
+
+    .model-image img{
+      height:430px;
+    }
+  }
+
+  @media (max-width:640px){
+    .container,
+    .nav-inner{
+      width:min(100% - 20px, 1240px);
+    }
+
+    .navbar{
+      padding:10px 0;
+    }
+.logo-badge{
+  width:58px;
+  height:58px;
+  background:transparent;
+  box-shadow:none;
+  padding:0;
+  border-radius:0;
+  overflow:visible;
+}
+.logo-badge img{
+  transform:scale(1.16);
+  transform-origin:left center;
+}
+
+    .logo-text h2{
+      font-size:1rem;
+    }
+
+    .logo-text p{
+      font-size:.64rem;
+      letter-spacing:.45px;
+      max-width:140px;
+      overflow:hidden;
+      text-overflow:ellipsis;
+    }
+
+    .franchise-hero{
+      padding:104px 0 46px;
+    }
+
+    .hero-copy{
+      padding:22px 18px;
+      border-radius:22px;
+    }
+
+    .eyebrow{
+      font-size:.8rem;
+      padding:9px 12px;
+      margin-bottom:14px;
+    }
+
+    .hero-copy h1{
+      font-size:2.15rem;
+      line-height:.98;
+    }
+
+    .hero-copy p{
+      font-size:.92rem;
+      line-height:1.7;
+    }
+
+    .hero-actions{
+      flex-direction:column;
+      gap:10px;
+    }
+
+    .btn{
+      width:100%;
+      min-height:52px;
+      padding:14px 18px;
+      font-size:.92rem;
+    }
+
+    .point-card{
+      padding:18px 16px;
+      border-radius:18px;
+    }
+
+    .point-card h3{
+      font-size:.98rem;
+    }
+
+    .point-card p{
+      font-size:.88rem;
+    }
+
+    .section-head{
+      margin-bottom:30px;
+    }
+
+    .section-head h2{
+      font-size:1.78rem;
+    }
+
+    .section-head p{
+      font-size:.91rem;
+      line-height:1.7;
+    }
+
+    .why-franchise,
+    .benefits,
+    .model,
+    .process,
+    .franchise-cta{
+      padding-bottom:64px;
+    }
+
+    .why-card,
+    .model-copy,
+    .model-visual,
+    .footer-card{
+      padding:20px 16px;
+      border-radius:20px;
+    }
+
+    .why-card h3{
+      font-size:1.08rem;
+    }
+
+    .why-card p{
+      font-size:.9rem;
+    }
+
+    .pill-grid,
+    .cta-mini-grid{
+      grid-template-columns:1fr;
+    }
+
+    .pill{
+      font-size:.86rem;
+      padding:13px 14px;
+    }
+
+    .benefit,
+    .process-card{
+      padding:18px 16px;
+      border-radius:18px;
+    }
+
+    .benefit .icon{
+      width:46px;
+      height:46px;
+      border-radius:13px;
+      font-size:1.1rem;
+    }
+
+    .benefit h4,
+    .process-card h4{
+      font-size:.96rem;
+    }
+
+    .benefit p,
+    .process-card p{
+      font-size:.87rem;
+    }
+
+    .model-copy h2,
+    .cta-copy h2{
+      font-size:1.82rem;
+    }
+
+    .model-copy p,
+    .cta-copy p{
+      font-size:.91rem;
+    }
+
+    .model-item{
+      font-size:.86rem;
+      padding:13px 14px;
+    }
+
+    .model-image img{
+      height:300px;
+    }
+
+    .model-note{
+      font-size:.84rem;
+    }
+
+    .cta-box{
+      padding:22px 16px;
+      border-radius:22px;
+    }
+
+    .cta-mini{
+      padding:16px;
+      border-radius:18px;
+    }
+
+    .cta-mini h4{
+      font-size:.92rem;
+    }
+
+    .cta-mini p{
+      font-size:.84rem;
+    }
+
+    footer{
+      padding:50px 0 26px;
+    }
+
+    .footer-card h3{
+      font-size:1.08rem;
+    }
+
+    .footer-card p,
+    .footer-card li,
+    .footer-card a{
+      font-size:.88rem;
+    }
+
+    .floating-order{
+      right:10px;
+      bottom:10px;
+      padding:13px 15px;
+      font-size:.82rem;
+    }
+  }
+
+  @media (max-width:420px){
+    .hero-copy h1{
+      font-size:1.95rem;
+    }
+
+    .section-head h2,
+    .model-copy h2,
+    .cta-copy h2{
+      font-size:1.62rem;
+    }
+
+    .model-image img{
+      height:260px;
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce){
+    *{
+      animation:none !important;
+      transition:none !important;
+      scroll-behavior:auto !important;
+    }
+  }
+</style>
+</head>
+
+<body>
+
+  <div class="nav-overlay" id="navOverlay"></div>
+
+  <nav class="navbar">
+  <div class="nav-inner">
+    <a href="index.html#home" class="logo">
+      <div class="logo-badge">
+        <img src="assets/images/logo.png" alt="The Waffle Busters Logo">
+      </div>
+      <div class="logo-text">
+        <h2>The Waffle Busters</h2>
+        <p>TASTE FROM THE WORLD</p>
+      </div>
+    </a>
+
+    <button class="nav-toggle" id="navToggle" aria-label="Open menu" aria-expanded="false">
+      <span></span>
+      <span></span>
+      <span></span>
+    </button>
+
+    <div class="nav-links" id="navLinks">
+      <ul>
+        <li><a href="index.html#home">Home</a></li>
+        <li><a href="menu.html">Menu</a></li>
+        <li><a href="franchise.html" class="active">Franchise</a></li>
+        <li><a href="events.html">Events</a></li>
+        <li><a href="about.html">About</a></li>
+        <li><a href="contact.html">Contact</a></li>
+        <li><a href="contact.html" class="nav-cta">Franchise Inquiry</a></li>
+      </ul>
+    </div>
+  </div>
+</nav>
+  <section class="franchise-hero">
+    <div class="container hero-wrap">
+      <div class="hero-copy">
+        <div class="eyebrow">🚀 Dessert brand with premium positioning</div>
+        <h1>Grow <span>With Us</span></h1>
+
+        <p>
+          The Waffle Buster is built as a modern dessert brand with strong visual appeal,
+          easy customer recall and a menu that naturally attracts repeat cravings.
+        </p>
+
+        <p>
+          For anyone looking to build with a youthful, premium and market-friendly concept,
+          this is a brand designed to feel exciting, memorable and scalable.
+        </p>
+
+        <div class="hero-actions">
+          <a href="contact.html" class="btn btn-primary">Click Here to Add With Us</a>
+          <a href="menu.html" class="btn btn-secondary">See Menu</a>
+        </div>
+      </div>
+
+      <div class="hero-points">
+        <div class="point-card">
+          <h3>Premium Brand Look</h3>
+          <p>A clean, visual-first dessert identity that stands out and feels modern.</p>
+        </div>
+
+        <div class="point-card">
+          <h3>Strong Menu Appeal</h3>
+          <p>Waffles, pancakes, shakes and coffee pairings create a broad and attractive range.</p>
+        </div>
+
+        <div class="point-card">
+          <h3>Built for Growth</h3>
+          <p>A concept designed for local buzz, repeat orders and future expansion.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="why-franchise">
+    <div class="container">
+      <div class="section-head">
+        <div class="mini">Why Franchise With Us</div>
+        <h2>A concept built for attention, cravings and growth.</h2>
+        <p>
+          The Waffle Busters is more than a food counter. It is a dessert experience with
+          strong visual identity, indulgent menu appeal and a format that feels premium yet accessible.
+        </p>
+      </div>
+
+      <div class="why-grid">
+        <div class="why-card">
+          <h3>Why this brand can scale</h3>
+          <p>
+            The concept is built around products people already love — waffles, bubble waffles,
+            pancakes, shakes and coffees — but presented with stronger branding, better visual appeal
+            and a more exciting customer experience. That combination supports repeat visits and better recall.
+          </p>
+        </div>
+
+        <div class="why-card">
+          <h3>What makes it attractive</h3>
+          <div class="pill-grid">
+            <div class="pill">Premium brand presentation</div>
+            <div class="pill">Strong menu variety</div>
+            <div class="pill">Visual dessert appeal</div>
+            <div class="pill">Cross-sell friendly format</div>
+            <div class="pill">Youth and family fit</div>
+            <div class="pill">Repeat craving potential</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="benefits">
+    <div class="container">
+      <div class="section-head">
+        <div class="mini">Franchise Benefits</div>
+        <h2>Why the model feels commercially exciting.</h2>
+      </div>
+
+      <div class="benefit-grid">
+        <div class="benefit">
+          <div class="icon">🧇</div>
+          <h4>Clear Product Focus</h4>
+          <p>Waffles and dessert-led offerings give the brand a sharper identity and stronger recall.</p>
+        </div>
+
+        <div class="benefit">
+          <div class="icon">🍫</div>
+          <h4>High Indulgence Appeal</h4>
+          <p>Loaded toppings and premium presentation create stronger cravings and repeat demand.</p>
+        </div>
+
+        <div class="benefit">
+          <div class="icon">📸</div>
+          <h4>Marketing Friendly</h4>
+          <p>The products are visual and attractive, making them easier to promote through social media and local campaigns.</p>
+        </div>
+
+        <div class="benefit">
+          <div class="icon">💸</div>
+          <h4>Cross-Sell Potential</h4>
+          <p>Waffles, pancakes, shakes and coffee combinations help improve basket size and customer delight.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="model">
+    <div class="container">
+      <div class="model-wrap">
+        <div class="model-copy">
+          <div class="mini">Business Model View</div>
+          <h2>A premium brand with everyday demand potential.</h2>
+          <p>
+            This franchise concept is based on products that are easy to love, highly visual
+            and naturally suited for repeat purchase behavior. The aim is to create a brand
+            that feels premium enough to excite customers while staying approachable enough for regular demand.
+          </p>
+
+          <div class="model-list">
+            <div class="model-item"><strong>Menu Strength:</strong> waffles, bubble waffles, pancakes, shakes and coffee pairings.</div>
+            <div class="model-item"><strong>Brand Strength:</strong> modern, premium and memorable dessert identity.</div>
+            <div class="model-item"><strong>Audience Strength:</strong> youth, families, dessert lovers and hangout seekers.</div>
+            <div class="model-item"><strong>Growth Strength:</strong> local visibility, repeat cravings and scalable format.</div>
+          </div>
+        </div>
+
+        <div class="model-visual">
+          <div class="model-image">
+            <img src="assets/images/image.png" alt="Business model view">
+          </div>
+          <div class="model-note">
+            A dessert concept designed around premium appearance, strong demand and repeat customer behavior.
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="process">
+    <div class="container">
+      <div class="section-head">
+        <div class="mini">Simple Joining Flow</div>
+        <h2>Easy next step for franchise interest.</h2>
+        <p>
+          If you want to explore association or franchise discussion, the next step is simple —
+          open the contact page and fill the free inquiry form.
+        </p>
+      </div>
+
+      <div class="process-grid">
+        <div class="process-card">
+          <div class="step">Step 01</div>
+          <h4>Visit Contact Page</h4>
+          <p>Go to the contact page and open the inquiry section to begin.</p>
+        </div>
+
+        <div class="process-card">
+          <div class="step">Step 02</div>
+          <h4>Fill Free Form</h4>
+          <p>Share your details, city and interest through the free form.</p>
+        </div>
+
+        <div class="process-card">
+          <div class="step">Step 03</div>
+          <h4>Connect With Team</h4>
+          <p>Your inquiry can then move ahead for discussion and review.</p>
+        </div>
+
+        <div class="process-card">
+          <div class="step">Step 04</div>
+          <h4>Explore Partnership</h4>
+          <p>Move ahead with business expectations and partnership possibilities.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="franchise-cta">
+    <div class="container">
+      <div class="cta-box">
+        <div class="cta-wrap">
+          <div class="cta-copy">
+            <div class="mini" style="color:var(--gold);font-weight:800;letter-spacing:2px;text-transform:uppercase;margin-bottom:12px;">Join Us</div>
+            <h2>Want to add with us?</h2>
+            <p>
+              Click below to open the contact page. It includes the free form for franchise inquiry and partnership discussion.
+            </p>
+
+            <div class="hero-actions" style="margin-top:24px;">
+              <a href="contact.html" class="btn btn-primary">Open Contact Form</a>
+              <a href="index.html#home" class="btn btn-secondary">Back to Home</a>
+            </div>
+          </div>
+
+          <div class="cta-mini-grid">
+            <div class="cta-mini">
+              <h4>Free Form</h4>
+              <p>Simple inquiry form available on the contact page for quick interest submission.</p>
+            </div>
+            <div class="cta-mini">
+              <h4>Quick Start</h4>
+              <p>One click takes the visitor directly to the page where they can contact your team.</p>
+            </div>
+            <div class="cta-mini">
+              <h4>Brand Fit</h4>
+              <p>Made for people looking to associate with a bold and premium dessert concept.</p>
+            </div>
+            <div class="cta-mini">
+              <h4>Growth Intent</h4>
+              <p>Built to attract serious leads who want to explore expansion with the brand.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-card">
+          <h3>The Waffle Busters</h3>
+          <p>
+            A premium dessert brand built around strong visual recall,
+            indulgent menu appeal and a format designed for growth.
+          </p>
+        </div>
+
+        <div class="footer-card">
+          <h3>Quick Links</h3>
+          <ul>
+            <li><a href="index.html#home">Home</a></li>
+            <li><a href="menu.html">Menu</a></li>
+            <li><a href="franchise.html">Franchise</a></li>
+            <li><a href="events.html">Events</a></li>
+            <li><a href="about.html">About</a></li>
+            <li><a href="contact.html">Contact</a></li>
+          </ul>
+        </div>
+
+        <div class="footer-card">
+          <h3>Franchise Notes</h3>
+          <ul>
+            <li>Premium dessert positioning</li>
+            <li>Strong visual and menu appeal</li>
+            <li>Built for repeat cravings</li>
+            <li>Inquiry starts from contact page form</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="footer-bottom">
+        © 2026 The Waffle Busters. All Rights Reserved.
+      </div>
+    </div>
+  </footer>
+
+  <a href="contact.html" class="floating-order">Franchise Inquiry</a>
+
+  <script>
+    gsap.registerPlugin(ScrollTrigger);
+
+    const navbar = document.querySelector(".navbar");
+    const navToggle = document.getElementById("navToggle");
+    const navLinks = document.getElementById("navLinks");
+    const navOverlay = document.getElementById("navOverlay");
+    const navItems = document.querySelectorAll(".nav-links a");
+function closeMenu() {
+  navToggle.classList.remove("active");
+  navLinks.classList.remove("active");
+  navOverlay.classList.remove("active");
+  navToggle.setAttribute("aria-expanded", "false");
+  document.body.style.overflow = "";
+}
+
+function openMenu() {
+  navToggle.classList.add("active");
+  navLinks.classList.add("active");
+  navOverlay.classList.add("active");
+  navToggle.setAttribute("aria-expanded", "true");
+  document.body.style.overflow = "hidden";
+}
+
+    navToggle.addEventListener("click", () => {
+      const isOpen = navLinks.classList.contains("active");
+      isOpen ? closeMenu() : openMenu();
+    });
+
+    navOverlay.addEventListener("click", closeMenu);
+    navItems.forEach(link => link.addEventListener("click", closeMenu));
+
+    window.addEventListener("resize", () => {
+      if (window.innerWidth > 900) {
+        closeMenu();
+      }
+    });
+
+    /* NAV SCROLL */
+    window.addEventListener("scroll", () => {
+      navbar.classList.toggle("scrolled", window.scrollY > 24);
+    });
+
+    /* HERO */
+    gsap.from(".hero-copy", {
+      y:34,
+      opacity:0,
+      duration:0.95,
+      ease:"power3.out"
+    });
+
+    gsap.from(".point-card", {
+      y:32,
+      opacity:0,
+      stagger:0.12,
+      duration:0.8,
+      delay:0.15,
+      ease:"power3.out"
+    });
+
+    /* SECTION ANIMS */
+    gsap.utils.toArray(".section-head").forEach((el) => {
+      gsap.from(el, {
+        y:36,
+        opacity:0,
+        duration:0.85,
+        ease:"power3.out",
+        scrollTrigger:{
+          trigger:el,
+          start:"top 84%"
+        }
+      });
+    });
+
+    gsap.utils.toArray(".why-card, .benefit, .model-copy, .model-visual, .process-card, .cta-box, .footer-card").forEach((el, i) => {
+      gsap.from(el, {
+        y:42,
+        opacity:0,
+        duration:0.85,
+        delay:i * 0.03,
+        ease:"power3.out",
+        scrollTrigger:{
+          trigger:el,
+          start:"top 88%"
+        }
+      });
+    });
+  </script>
+
+</body>
+</html>
